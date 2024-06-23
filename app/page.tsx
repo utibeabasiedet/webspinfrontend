@@ -1,5 +1,8 @@
 
-import Roulette from "./roulette";
+// import Roulette from "./roulette";
+import dynamic from 'next/dynamic';
+
+const Roulette = dynamic(() => import('./roulette'), { ssr: false });
 
 export default function App() {
   return (
