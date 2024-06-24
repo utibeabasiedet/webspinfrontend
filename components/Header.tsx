@@ -239,7 +239,7 @@ const Header: React.FC = () => {
 
         {menuOpen && (
           <div className="flex flex-col absolute justify-start gap-5 pt-10 items-center bg-black h-[40vh] w-full top-16 z-50 left-0 space-x-2 md:space-x-4 mt-2 md:mt-0">
-            <Link href="/points" className="text-md text-white">
+            <Link href="/mypoint" className="text-md text-white">
               My Points
             </Link>
             <Link href="/summary" className="text-md text-white">
