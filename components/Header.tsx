@@ -226,7 +226,7 @@ const Header: React.FC = () => {
       <main className="md:px-[100px] px-5 w-full mx-auto flex justify-between items-center flex-wrap">
         <Link href="/" className="text-2xl mb-2">
           <span className="text-gray-300">MPG</span>
-          <span>Coin</span>
+          <span>Token</span>
         </Link>
 
         <div onClick={handleToggle} className="cursor-pointer md:hidden">
@@ -238,9 +238,9 @@ const Header: React.FC = () => {
         </div>
 
         {menuOpen && (
-          <div className="flex flex-col absolute justify-start gap-5 pt-10 items-center bg-blue-700 h-[40vh] w-full top-16 z-50 left-0 space-x-2 md:space-x-4 mt-2 md:mt-0">
-            <Link href="/games" className="text-md text-white">
-              My Games
+          <div className="flex flex-col absolute justify-start gap-5 pt-10 items-center bg-black h-[40vh] w-full top-16 z-50 left-0 space-x-2 md:space-x-4 mt-2 md:mt-0">
+            <Link href="/points" className="text-md text-white">
+              My Points
             </Link>
             <Link href="/summary" className="text-md text-white">
               Summary
@@ -250,7 +250,7 @@ const Header: React.FC = () => {
                 <ConnectBtn content="Sign Up" />
               </Link>
             ) : (
-              <button onClick={handleLogout}>Logout</button>
+              <button onClick={handleLogout} >Logout</button>
             )}
           </div>
         )}
