@@ -24,7 +24,6 @@
 
 //       const LoggedIn = response.data;
 //       setIsAuthenticated(LoggedIn);
- 
 
 //       if (LoggedIn) {
 //         try {
@@ -54,8 +53,6 @@
 //     checkLoginStatus();
 //   }, [isloggedin]);
 
- 
-
 //   const handleToggle = () => {
 //     setMenuOpen((prev) => !prev);
 //   };
@@ -68,7 +65,7 @@
 //           withCredentials: true, // This ensures cookies are sent and received
 //         }
 //       );
-     
+
 //       setIsAuthenticated(false);
 //       isloggedin.set(false); // Ensure this is updated
 //       realuserId.set(""); // Reset user ID on logout
@@ -198,7 +195,7 @@ const Header: React.FC = () => {
   }, [checkLoginStatus, isloggedin]); // Include checkLoginStatus in the dependency array
 
   const handleToggle = () => {
-    setMenuOpen((prev) => !prev);
+    setMenuOpen(prev => !prev);
   };
 
   const handleLogout = async () => {
@@ -238,7 +235,7 @@ const Header: React.FC = () => {
         </div>
 
         {menuOpen && (
-          <div className="flex flex-col absolute justify-start gap-5 pt-10 items-center bg-black h-[40vh] w-full top-16 z-50 left-0 space-x-2 md:space-x-4 mt-2 md:mt-0">
+          <div className="flex flex-col absolute justify-start gap-5 pt-10 items-center bg-black min-h-[40vh] w-full top-16 z-50 left-0 space-x-2 md:space-x-4 mt-2 md:mt-0 pb-3">
             <Link href="/mypoint" className="text-md text-white">
               My Points
             </Link>
@@ -246,11 +243,16 @@ const Header: React.FC = () => {
               Summary
             </Link>
             {!isAuthenticated ? (
-              <Link href="/register">
-                <ConnectBtn content="Sign Up" />
-              </Link>
+              <div className="flex  flex-col gap-5  pb-6 justify-center items-center">
+                <Link href="/register">
+                  <ConnectBtn content="Sign Up" />
+                </Link> 
+                <Link href="/login">
+                  <ConnectBtn content="Sign In" />
+                </Link>
+              </div>
             ) : (
-              <button onClick={handleLogout} >Logout</button>
+              <button onClick={handleLogout}>Logout</button>
             )}
           </div>
         )}
@@ -283,4 +285,3 @@ const Header: React.FC = () => {
 };
 
 export default Header;
-
