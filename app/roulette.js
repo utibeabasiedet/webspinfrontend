@@ -29,7 +29,7 @@ export default function Roulette() {
     // Check if user is logged in
     const checkLoginStatus = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/users/loggedin", {
+        const response = await axios.get("https://webspin-backend.onrender.com/api/users/loggedin", {
           withCredentials: true,
         });
 
@@ -45,7 +45,7 @@ export default function Roulette() {
     const getSpinCount = async () => {
       try {
         const userId = realuserId.get();
-        const response = await axios.get(`http://localhost:5000/api/users/spin-count/${userId}`);
+        const response = await axios.get(`https://webspin-backend.onrender.com/api/users/spin-count/${userId}`);
         setSpinCount(response.data.spinCount);
       } catch (error) {
         console.error("Error getting spin count:", error);
@@ -76,7 +76,7 @@ export default function Roulette() {
   const updateUserPoints = async (points) => {
     try {
       const userId = realuserId.get();
-      const response = await axios.post("http://localhost:5000/api/users/update-points", { userId, points });
+      const response = await axios.post("https://webspin-backend.onrender.com/api/users/update-points", { userId, points });
       console.log("Updated user data:", response.data);
 
       // Increment spin count after successful point update

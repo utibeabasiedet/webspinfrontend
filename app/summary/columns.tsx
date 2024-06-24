@@ -48,7 +48,7 @@ const UserTable = () => {
     const checkLoginStatus = async () => {
       try {
         const response = await axios.get(
-          'http://localhost:5000/api/users/loggedin',
+          'https://webspin-backend.onrender.com/api/users/loggedin',
           {
             withCredentials: true,
           }
@@ -59,7 +59,7 @@ const UserTable = () => {
         if (isLoggedIn) {
           try {
             const userResponse = await axios.get(
-              'http://localhost:5000/api/users/getalluser', // Correct the endpoint if necessary
+              'https://webspin-backend.onrender.com/api/users/getalluser', // Correct the endpoint if necessary
               {
                 withCredentials: true,
               }
@@ -86,7 +86,7 @@ const UserTable = () => {
   const handlePayUser = async (userId: string) => {
     try {
       const response = await axios.post(
-        'http://localhost:5000/api/users/pay',
+        'https://webspin-backend.onrender.com/api/users/pay',
         { userId },
         {
           withCredentials: true,

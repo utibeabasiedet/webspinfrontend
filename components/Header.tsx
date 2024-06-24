@@ -160,7 +160,7 @@ const Header: React.FC = () => {
   const checkLoginStatus = useCallback(async () => {
     try {
       const response = await axios.get(
-        "http://localhost:5000/api/users/loggedin",
+        "https://webspin-backend.onrender.com/api/users/loggedin",
         {
           withCredentials: true, // Ensure cookies are sent with the request
         }
@@ -172,7 +172,7 @@ const Header: React.FC = () => {
       if (LoggedIn) {
         try {
           const userResponse = await axios.get(
-            "http://localhost:5000/api/users/getuser",
+            "https://webspin-backend.onrender.com/api/users/getuser",
             {
               withCredentials: true, // Send cookies for authentication
             }
@@ -204,7 +204,7 @@ const Header: React.FC = () => {
   const handleLogout = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:5000/api/users/logout", // Replace with your actual API endpoint
+        "https://webspin-backend.onrender.com/api/users/logout", // Replace with your actual API endpoint
         {
           withCredentials: true, // This ensures cookies are sent and received
         }

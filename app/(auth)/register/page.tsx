@@ -57,7 +57,7 @@ const Register: React.FC = () => {
 const registerUser = async (userData: FormData) => {
   try {
     const response = await axios.post(
-      'https://webspin-backend.onrender.com//api/users/register', // Replace with your actual API endpoint
+      'https://webspin-backend.onrender.com/api/users/register', // Replace with your actual API endpoint
       userData,
       {
         withCredentials: true, // This ensures cookies are sent and received
