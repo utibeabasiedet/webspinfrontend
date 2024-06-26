@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { Wheel } from "react-custom-roulette";
-import ParticlesComponent from "../components/particles";
+// import ParticlesComponent from "../components/particles";
 import axios from "axios";
 import useStateManager from "../statemanager/stateManager";
 import "./globals.css";
@@ -29,9 +29,12 @@ export default function Roulette() {
     // Check if user is logged in
     const checkLoginStatus = async () => {
       try {
-        const response = await axios.get("https://webspin-backend.onrender.com/api/users/loggedin", {
-          withCredentials: true,
-        });
+        const response = await axios.get(
+          "https://webspin-backend.onrender.com/api/users/loggedin",
+          {
+            withCredentials: true,
+          }
+        );
 
         setIsLoggedIn(response.data);
       } catch (error) {
@@ -45,7 +48,9 @@ export default function Roulette() {
     const getSpinCount = async () => {
       try {
         const userId = realuserId.get();
-        const response = await axios.get(`https://webspin-backend.onrender.com/api/users/spin-count/${userId}`);
+        const response = await axios.get(
+          `https://webspin-backend.onrender.com/api/users/spin-count/${userId}`
+        );
         setSpinCount(response.data.spinCount);
       } catch (error) {
         console.error("Error getting spin count:", error);
@@ -73,14 +78,17 @@ export default function Roulette() {
     setMustSpin(true);
   };
 
-  const updateUserPoints = async (points) => {
+  const updateUserPoints = async points => {
     try {
       const userId = realuserId.get();
-      const response = await axios.post("https://webspin-backend.onrender.com/api/users/update-points", { userId, points });
+      const response = await axios.post(
+        "https://webspin-backend.onrender.com/api/users/update-points",
+        { userId, points }
+      );
       console.log("Updated user data:", response.data);
 
       // Increment spin count after successful point update
-      setSpinCount((prevCount) => prevCount + 1);
+      setSpinCount(prevCount => prevCount + 1);
     } catch (error) {
       console.error("Error updating points:", error);
     }
@@ -88,46 +96,62 @@ export default function Roulette() {
 
   return (
     <>
-      <ParticlesComponent id="particles" />
-      <div>
-        <div className="text-white">Total Winnings: {totalWinnings}</div>
-        <div className="text-white">Spins Today: {spinCount}/{MAX_SPINS_PER_DAY}</div>
+      {/* <ParticlesComponent id="particles" /> */}
+      <div className="bg-red-700 relative  ">
+        <div className="">Total Winnings: {totalWinnings}</div>
+        <div className="">
+          Spins Today: {spinCount}/{MAX_SPINS_PER_DAY}
+        </div>
 
-        <Wheel
-          mustStartSpinning={mustSpin}
-          prizeNumber={prizeNumber}
-          data={data}
-          outerBorderColor={["#f2f2f2"]}
-          outerBorderWidth={[10]}
-          innerBorderColor={["#f2f2f2"]}
-          radiusLineColor={["#dedede"]}
-          radiusLineWidth={[1]}
-          fontSize={15}
-          textColors={["#ffffff"]}
-          backgroundColors={[
-            "#F22B35",
-            "#514E50",
-            "#24CA69",
-            "#514E50",
-            "#46AEFF",
-            "#514E50",
-          ]}
-          onStopSpinning={() => {
-            setMustSpin(false);
-            const prizeValue = data[prizeNumber].value;
-            setTotalWinnings((prevWinnings) => prevWinnings + prizeValue);
-            updateUserPoints(prizeValue);
-          }}
-        />
+        <div style={{ position: "relative" }} className=" h-full relative ">
+          <Wheel
+            mustStartSpinning={mustSpin}
+            prizeNumber={prizeNumber}
+            data={data}
+            outerBorderColor={["#f2f2f2"]}
+            outerBorderWidth={[10]}
+            innerBorderColor={["#f2f2f2"]}
+            radiusLineColor={["#dedede"]}
+            radiusLineWidth={[1]}
+            fontSize={15}
+            textColors={["#ffffff"]}
+            backgroundColors={[
+              "#F22B35",
+              "#514E50",
+              "#24CA69",
+              "#514E50",
+              "#46AEFF",
+              "#514E50",
+            ]}
+            onStopSpinning={() => {
+              setMustSpin(false);
+              const prizeValue = data[prizeNumber].value;
+              setTotalWinnings(prevWinnings => prevWinnings + prizeValue);
+              updateUserPoints(prizeValue);
+            }}
+          />
 
-        <div className="flex justify-center gap-6 mt-6">
-          <button
-            style={{ backgroundColor: "#000" }}
-            className="bg-black z-40 border w-full py-2 px-6 text-white rounded-full transition duration-300 ease-in-out"
-            onClick={handleSpinClick}
-          >
-            SPIN
-          </button>
+          <div
+            style={{
+              position: "absolute",
+              top: "50%",
+
+              zIndex: 6000,
+              transform: "translateY(-50%)",
+            }}
+            className="flex justify-center h-[100px] w-full">
+            <button
+              style={{
+                height: "58px",
+                width: "58px",
+                backgroundColor: "black",
+                borderRadius: "50%",
+              }}
+              className="bg-black border h-12 w-12 text-white rounded-full transition duration-300 ease-in-out"
+              onClick={handleSpinClick}>
+              SPIN
+            </button>
+          </div>
         </div>
       </div>
     </>
