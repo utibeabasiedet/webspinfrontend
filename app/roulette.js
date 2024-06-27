@@ -100,22 +100,23 @@ export default function Roulette() {
   };
 
   return (
-    <div style={{  }} className="relative w-full flex justify-center h-[80vh]">
+    <div style={{}} className="relative w-full flex justify-center h-[80vh]">
       <div
         style={{
-          backgroundColor: "#000066",
+          backgroundColor: "#280B70",
           zIndex: 10000000000000000,
           position: "absolute",
           right: "0px",
-        
         }}
-        className=" absolute z-[900000000000] bg-[#000066] py-5 w-full text-center top-5 right-0">
-        <div className=" text-white font-bold">Total Winnings: {totalWinnings}</div>
+        className=" absolute z-[900000000000] bg-[#280B70] py-5 w-full text-center top-5 right-0">
+        <div className=" text-white font-bold">
+          Total Winnings: {totalWinnings}
+        </div>
         <div className="text-white font-bold">
           Spins Today: {spinCount}/{MAX_SPINS_PER_DAY}
         </div>
       </div>
-      <ParticlesComponent id="particles" />
+      {/* <ParticlesComponent id="particles" /> */}
 
       {/* <Confetti
         drawShape={ctx => {

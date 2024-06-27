@@ -33,7 +33,7 @@ const config = {
         "accordion-up": "accordion-up 0.2s ease-out",
       },
       backgroundImage: {
-        'hero-pattern': "url('../public/bg4.jpg')",
+        'hero-pattern': "url('../public/banner-bg.png')",
         'footer-texture': "url('/img/footer-texture.png')",
       }
     },
