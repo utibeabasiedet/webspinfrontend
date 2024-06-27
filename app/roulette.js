@@ -1,10 +1,14 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { Wheel } from "react-custom-roulette";
-// import ParticlesComponent from "../components/particles";
+import ParticlesComponent from "../components/particles";
 import axios from "axios";
 import useStateManager from "../statemanager/stateManager";
 import "./globals.css";
+import Image from "next/image";
+import BG from "../public/mpgassets/bg1.webp";
+// import useWindowSize from 'react-use/lib/useWindowSize'
+import Confetti from "react-confetti";
 
 const data = [
   { option: "1000", value: 1000 },
@@ -24,6 +28,7 @@ export default function Roulette() {
   const [totalWinnings, setTotalWinnings] = useState(0);
   const [spinCount, setSpinCount] = useState(0);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const { width, height } = useWindowSize()
 
   useEffect(() => {
     // Check if user is logged in
@@ -96,12 +101,28 @@ export default function Roulette() {
 
   return (
     <>
-      {/* <ParticlesComponent id="particles" /> */}
-      <div className="bg-red-700 relative  ">
-        <div className="">Total Winnings: {totalWinnings}</div>
-        <div className="">
-          Spins Today: {spinCount}/{MAX_SPINS_PER_DAY}
+      <ParticlesComponent id="particles" />
+      <div className="bg-black fixed z-[900000000000] top-0">
+          <div className="">Total Winnings: {totalWinnings}</div>
+          <div className="">
+            Spins Today: {spinCount}/{MAX_SPINS_PER_DAY}
+          </div>
         </div>
+      {/* <Confetti
+        drawShape={ctx => {
+          ctx.beginPath();
+          for (let i = 0; i < 22; i++) {
+            const angle = 0.35 * i;
+            const x = (0.2 + 1.5 * angle) * Math.cos(angle);
+            const y = (0.2 + 1.5 * angle) * Math.sin(angle);
+            ctx.lineTo(x, y);
+          }
+          ctx.stroke();
+          ctx.closePath();
+        }}
+      /> */}
+      <div className=" relative  ">
+        
 
         <div style={{ position: "relative" }} className=" h-full relative ">
           <Wheel
@@ -116,12 +137,12 @@ export default function Roulette() {
             fontSize={15}
             textColors={["#ffffff"]}
             backgroundColors={[
-              "#F22B35",
-              "#514E50",
-              "#24CA69",
-              "#514E50",
-              "#46AEFF",
-              "#514E50",
+              "#4169E1", // Gold
+              "#000000", // Golden Yellow
+              "#191970", // Goldenrod
+              "#000000", // Light Goldenrod
+              "#00008B", // Golden Brown
+              "#000000", // Dark Goldenrod
             ]}
             onStopSpinning={() => {
               setMustSpin(false);
@@ -139,15 +160,15 @@ export default function Roulette() {
               zIndex: 6000,
               transform: "translateY(-50%)",
             }}
-            className="flex justify-center h-[100px] w-full">
+            className="flex animate-ping justify-center h-[100px] w-full">
             <button
               style={{
                 height: "58px",
                 width: "58px",
-                backgroundColor: "black",
+                // backgroundColor: "black",
                 borderRadius: "50%",
               }}
-              className="bg-black border h-12 w-12 text-white rounded-full transition duration-300 ease-in-out"
+              className="coin animate-spin border h-12 w-12 text-white rounded-full transition duration-300 ease-in-out"
               onClick={handleSpinClick}>
               SPIN
             </button>

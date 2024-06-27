@@ -147,6 +147,8 @@ import Button from "./CustomButton";
 import { FaBars, FaTimes } from "react-icons/fa";
 import useStateManager from "../statemanager/stateManager";
 import axios from "axios";
+import Image from "next/image";
+import Logo from '../public/mpgassets/mpglogo.png'
 
 const Header: React.FC = () => {
   const { realuserId, isloggedin } = useStateManager();
@@ -219,11 +221,12 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="shadow-sm z-50 shadow-blue-900 py-4 text-blue-700 bg-[#010922]">
+    <header className="shadow-sm z-50 bg-gray-100 py-3 text-blue-700 ">
       <main className="md:px-[100px] px-5 w-full mx-auto flex justify-between items-center flex-wrap">
         <Link href="/" className="text-2xl mb-2">
-          <span className="text-gray-300">MPG</span>
-          <span>Token</span>
+          <Image src={Logo} height={70} width={70} alt='logo' />
+          {/* <span className="">MPG</span>
+          <span>Token</span> */}
         </Link>
 
         <div onClick={handleToggle} className="cursor-pointer md:hidden">
@@ -236,10 +239,10 @@ const Header: React.FC = () => {
 
         {menuOpen && (
           <div className="flex flex-col absolute justify-start gap-5 pt-10 items-center bg-black min-h-[40vh] w-full top-16 z-50 left-0 space-x-2 md:space-x-4 mt-2 md:mt-0 pb-3">
-            <Link href="/mypoint" className="text-md text-white">
+            <Link href="/mypoint" className="text-md ">
               My Points
             </Link>
-            <Link href="/summary" className="text-md text-white">
+            <Link href="/summary" className="text-md ">
               Summary
             </Link>
             {!isAuthenticated ? (
@@ -258,10 +261,10 @@ const Header: React.FC = () => {
         )}
 
         <div className="md:flex justify-end hidden items-center z-50 left-0 space-x-2 md:space-x-4 mt-2 md:mt-0">
-          <Link href="/mypoint" className="text-md text-white">
+          <Link href="/mypoint" className="text-md ">
             My Points
           </Link>
-          <Link href="/summary" className="text-md text-white">
+          <Link href="/summary" className="text-md ">
             Summary
           </Link>
           {!isloggedin.get() ? (
