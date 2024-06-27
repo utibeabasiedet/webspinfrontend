@@ -100,30 +100,52 @@ export default function Roulette() {
   };
 
   return (
-    <>
-      <ParticlesComponent id="particles" />
-      <div className="bg-black fixed z-[900000000000] top-0">
-          <div className="">Total Winnings: {totalWinnings}</div>
-          <div className="">
-            Spins Today: {spinCount}/{MAX_SPINS_PER_DAY}
-          </div>
+    <div style={{  }} className="relative w-full flex justify-center h-[80vh]">
+      <div
+        style={{
+          backgroundColor: "#000066",
+          zIndex: 10000000000000000,
+          position: "absolute",
+          right: "0px",
+        
+        }}
+        className=" absolute z-[900000000000] bg-[#000066] py-5 w-full text-center top-5 right-0">
+        <div className=" text-white font-bold">Total Winnings: {totalWinnings}</div>
+        <div className="text-white font-bold">
+          Spins Today: {spinCount}/{MAX_SPINS_PER_DAY}
         </div>
+      </div>
+      <ParticlesComponent id="particles" />
+
       {/* <Confetti
         drawShape={ctx => {
-          ctx.beginPath();
-          for (let i = 0; i < 22; i++) {
-            const angle = 0.35 * i;
-            const x = (0.2 + 1.5 * angle) * Math.cos(angle);
-            const y = (0.2 + 1.5 * angle) * Math.sin(angle);
-            ctx.lineTo(x, y);
-          }
-          ctx.stroke();
-          ctx.closePath();
+          const drawCoin = color => {
+            // Draw circle for coin
+            ctx.beginPath();
+            ctx.arc(10, 10, 10, 0, Math.PI * 2);
+            ctx.fillStyle = color;
+            ctx.fill();
+            ctx.closePath();
+
+            // Draw text inside the coin
+            ctx.fillStyle = "#ffffff";
+            ctx.font = "bold 10px Arial";
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            ctx.fillText("MPG", 10, 10);
+          };
+
+          const drawBitcoin = () => drawCoin("#f7931a"); // Bitcoin color
+          const drawEthereum = () => drawCoin("#3c3c3d"); // Ethereum color
+          const drawLitecoin = () => drawCoin("#bebebe"); // Litecoin color
+
+          const shapes = [drawBitcoin, drawEthereum, drawLitecoin];
+          const randomShape = shapes[Math.floor(Math.random() * shapes.length)];
+          randomShape();
         }}
       /> */}
-      <div className=" relative  ">
-        
 
+      <div className=" relative flex justify-center items-center  ">
         <div style={{ position: "relative" }} className=" h-full relative ">
           <Wheel
             mustStartSpinning={mustSpin}
@@ -175,6 +197,6 @@ export default function Roulette() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

@@ -231,9 +231,9 @@ const Header: React.FC = () => {
 
         <div onClick={handleToggle} className="cursor-pointer md:hidden">
           {menuOpen ? (
-            <FaTimes className="text-[38px] text-white" />
+            <FaTimes className="text-[38px] text-black" />
           ) : (
-            <FaBars className="text-[38px] text-white" />
+            <FaBars className="text-[38px] text-black" />
           )}
         </div>
 
