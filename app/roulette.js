@@ -19,7 +19,7 @@ const data = [
   { option: "Loss", value: 0 },
 ];
 
-const MAX_SPINS_PER_DAY = 10;
+const MAX_SPINS_PER_DAY = 100;
 
 export default function Roulette() {
   const [mustSpin, setMustSpin] = useState(false);
@@ -118,7 +118,7 @@ export default function Roulette() {
       </div>
       {/* <ParticlesComponent id="particles" /> */}
 
-      {/* <Confetti
+      <Confetti
         drawShape={ctx => {
           const drawCoin = color => {
             // Draw circle for coin
@@ -144,7 +144,7 @@ export default function Roulette() {
           const randomShape = shapes[Math.floor(Math.random() * shapes.length)];
           randomShape();
         }}
-      /> */}
+      />
 
       <div className=" relative flex justify-center items-center  ">
         <div style={{ position: "relative" }} className=" h-full relative ">
@@ -160,12 +160,12 @@ export default function Roulette() {
             fontSize={15}
             textColors={["#ffffff"]}
             backgroundColors={[
-              "#4169E1", // Gold
-              "#000000", // Golden Yellow
-              "#191970", // Goldenrod
-              "#000000", // Light Goldenrod
-              "#00008B", // Golden Brown
-              "#000000", // Dark Goldenrod
+              "#9986C9", // Purple
+              "linear-gradient(135deg, #FFD700 0%, #FFA500 100%)", // Gold gradient
+              "#9DD3F1", // Light Blue
+              "linear-gradient(135deg, #FFD700 0%, #FFA500 100%)", // Gold gradient
+              "#CDB4D9", // Light Purple
+              "linear-gradient(135deg, #FFD700 0%, #FFA500 100%)", // Gold gradient
             ]}
             onStopSpinning={() => {
               setMustSpin(false);
@@ -188,10 +188,10 @@ export default function Roulette() {
               style={{
                 height: "58px",
                 width: "58px",
-                // backgroundColor: "black",
+                backgroundColor: "#7400D3",
                 borderRadius: "50%",
               }}
-              className="coin animate-spin border h-12 w-12 text-white rounded-full transition duration-300 ease-in-out"
+              className="bg-[#7400D3] animate-spin border h-12 w-12 text-white rounded-full transition duration-300 ease-in-out"
               onClick={handleSpinClick}>
               SPIN
             </button>

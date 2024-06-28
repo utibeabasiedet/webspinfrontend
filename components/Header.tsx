@@ -221,7 +221,7 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="shadow-sm z-50 bg-gray-100 py-3 text-blue-700 ">
+    <header className="shadow-sm z-50 bg-[#00003E] py-3 text-blue-700 ">
       <main className="md:px-[100px] px-5 w-full mx-auto flex justify-between items-center flex-wrap">
         <Link href="/" className="text-2xl mb-2">
           <Image src={Logo} height={70} width={70} alt='logo' />
@@ -231,9 +231,9 @@ const Header: React.FC = () => {
 
         <div onClick={handleToggle} className="cursor-pointer md:hidden">
           {menuOpen ? (
-            <FaTimes className="text-[38px] text-black" />
+            <FaTimes className="text-[38px] text-white" />
           ) : (
-            <FaBars className="text-[38px] text-black" />
+            <FaBars className="text-[38px] text-white" />
           )}
         </div>
 
