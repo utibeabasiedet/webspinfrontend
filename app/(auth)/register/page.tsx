@@ -8,7 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import Image from "next/image";
 // import useStateManager from "../statemanager/stateManager";
-import axios from 'axios';
+import axios from "axios";
 import { FaEye } from "react-icons/fa";
 import { FaEyeLowVision } from "react-icons/fa6";
 import { ToastAction } from "@/components/ui/toast";
@@ -34,10 +34,8 @@ const validationSchema = z.object({
 
 type FormData = z.infer<typeof validationSchema>;
 
-
-
 const Register: React.FC = () => {
-  const {isloggedin} = useStateManager();
+  const { isloggedin } = useStateManager();
   const { toast } = useToast();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -52,52 +50,52 @@ const Register: React.FC = () => {
   } = useForm<FormData>({
     resolver: zodResolver(validationSchema),
   });
-  
-// Function to register user
-const registerUser = async (userData: FormData) => {
-  try {
-    const response = await axios.post(
-      'https://webspin-backend.onrender.com/api/users/register', // Replace with your actual API endpoint
-      userData,
-      {
-        withCredentials: true, // This ensures cookies are sent and received
-      }
-    );
-    
-    console.log('User registered successfully:', response.data);
-    return response.data;
-  } catch (error: any) {
-    console.error('Error registering user:', error.response.data.message || error.message);
-    throw error;
-  }
-};
 
-const onSubmitForm = async (account: FormData) => {
-  setIsLoading(true);
-  try {
-    const data = await registerUser(account);
-    isloggedin.set(true);
-    
-    // If registration is successful, redirect the user
-    toast({
-      title: "Congratulations",
-      description: 'You signed up successfully',
-    });
-    router.push('/');
-  } catch (error: any) {
-    console.error("Registration error:", error); // Log the error for debugging purposes
-    toast({
-      variant: "destructive",
-      title: "Uh oh! Something went wrong.",
-      description: error.response?.data?.message || error.message,
-    });
-  } finally {
-    setIsLoading(false);
-  }
-};
+  // Function to register user
+  const registerUser = async (userData: FormData) => {
+    try {
+      const response = await axios.post(
+        "https://webspin-backend.onrender.com/api/users/register", // Replace with your actual API endpoint
+        userData,
+        {
+          withCredentials: true, // This ensures cookies are sent and received
+        }
+      );
 
+      console.log("User registered successfully:", response.data);
+      return response.data;
+    } catch (error: any) {
+      console.error(
+        "Error registering user:",
+        error.response.data.message || error.message
+      );
+      throw error;
+    }
+  };
 
+  const onSubmitForm = async (account: FormData) => {
+    setIsLoading(true);
+    try {
+      const data = await registerUser(account);
+      isloggedin.set(true);
 
+      // If registration is successful, redirect the user
+      toast({
+        title: "Congratulations",
+        description: "You signed up successfully",
+      });
+      router.push("/login");
+    } catch (error: any) {
+      console.error("Registration error:", error); // Log the error for debugging purposes
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: error.response?.data?.message || error.message,
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const togglePassword = () => {
     setPasswordShow(!passwordShow);
@@ -172,6 +170,18 @@ const onSubmitForm = async (account: FormData) => {
             <span className="text-red-500 text-sm font-semibold">
               {errors.password && errors.password.message}
             </span>
+          </div>
+          <div className="flex flex-col gap-[6px]">
+            <label htmlFor="emailAddress">Referal Code</label>
+            <input
+              className="border outline-blue-700 w-full h-[48px] rounded-lg px-[14px]"
+              type="text"
+              placeholder="Referal Code"
+              // {...register("emailAddress")}
+            />
+            {/* <span className="text-red-500 text-sm font-semibold">
+              {errors.emailAddress && errors.emailAddress.message}
+            </span> */}
           </div>
 
           <Button

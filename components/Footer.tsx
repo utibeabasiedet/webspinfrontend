@@ -9,7 +9,9 @@ const Footer = () => {
       <span>© {currentYear} <Link href={"/"} className="text-lg mb-2">
           <span className="text-blue-700">MPG</span>
           <span>Token</span>
-        </Link> Nigeria. All rights reserved.</span>
+        </Link>  All rights reserved.</span>
+        {/* const [showDialog, setShowDialog] = useState(false);
+  const [dialogMessage, setDialogMessage] = useState(""); */}
     </footer>
   );
 };

@@ -1,21 +1,29 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { Wheel } from "react-custom-roulette";
-import ParticlesComponent from "../components/particles";
 import axios from "axios";
 import useStateManager from "../statemanager/stateManager";
 import "./globals.css";
-import Image from "next/image";
-import BG from "../public/mpgassets/bg1.webp";
-// import useWindowSize from 'react-use/lib/useWindowSize'
 import Confetti from "react-confetti";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+
 
 const data = [
-  { option: "1000", value: 1000 },
+  { option: "50000", value: 50000 },
   { option: "Loss", value: 0 },
-  { option: "Jackpot 2000", value: 2000 },
+  { option: "Jackpot 200,000", value: 200000 },
   { option: "Loss", value: 0 },
-  { option: "1500", value: 1500 },
+  { option: "100000", value: 1500 },
   { option: "Loss", value: 0 },
 ];
 
@@ -28,10 +36,10 @@ export default function Roulette() {
   const [totalWinnings, setTotalWinnings] = useState(0);
   const [spinCount, setSpinCount] = useState(0);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  // const { width, height } = useWindowSize()
+  const [showDialog, setShowDialog] = useState(false);
+  const [dialogMessage, setDialogMessage] = useState("");
 
   useEffect(() => {
-    // Check if user is logged in
     const checkLoginStatus = async () => {
       try {
         const response = await axios.get(
@@ -40,7 +48,6 @@ export default function Roulette() {
             withCredentials: true,
           }
         );
-
         setIsLoggedIn(response.data);
       } catch (error) {
         console.error("Error checking login status:", error);
@@ -49,7 +56,6 @@ export default function Roulette() {
 
     checkLoginStatus();
 
-    // Get the user's spin count from the backend
     const getSpinCount = async () => {
       try {
         const userId = realuserId.get();
@@ -92,43 +98,32 @@ export default function Roulette() {
       );
       console.log("Updated user data:", response.data);
 
-      // Increment spin count after successful point update
       setSpinCount(prevCount => prevCount + 1);
     } catch (error) {
       console.error("Error updating points:", error);
     }
   };
 
+  const handleSpinEnd = () => {
+    setMustSpin(false);
+    const prizeValue = data[prizeNumber].value;
+    setTotalWinnings(prevWinnings => prevWinnings + prizeValue);
+    updateUserPoints(prizeValue);
+    setDialogMessage(prizeValue > 0 ? `Congratulations! You won ${prizeValue} points!` : "Sorry, you lost. Better luck next time!");
+    setShowDialog(true);
+  };
+
   return (
     <div style={{}} className="relative w-full flex justify-center h-[80vh]">
-      <div
-        style={{
-          backgroundColor: "#280B70",
-          zIndex: 10000000000000000,
-          position: "absolute",
-          right: "0px",
-        }}
-        className=" absolute z-[900000000000] bg-[#280B70] py-5 w-full text-center top-5 right-0">
-        <div className=" text-white font-bold">
-          Total Winnings: {totalWinnings}
-        </div>
-        <div className="text-white font-bold">
-          Spins Today: {spinCount}/{MAX_SPINS_PER_DAY}
-        </div>
-      </div>
-      {/* <ParticlesComponent id="particles" /> */}
-
       <Confetti
         drawShape={ctx => {
           const drawCoin = color => {
-            // Draw circle for coin
             ctx.beginPath();
             ctx.arc(10, 10, 10, 0, Math.PI * 2);
             ctx.fillStyle = color;
             ctx.fill();
             ctx.closePath();
 
-            // Draw text inside the coin
             ctx.fillStyle = "#ffffff";
             ctx.font = "bold 10px Arial";
             ctx.textAlign = "center";
@@ -136,9 +131,9 @@ export default function Roulette() {
             ctx.fillText("MPG", 10, 10);
           };
 
-          const drawBitcoin = () => drawCoin("#f7931a"); // Bitcoin color
-          const drawEthereum = () => drawCoin("#3c3c3d"); // Ethereum color
-          const drawLitecoin = () => drawCoin("#bebebe"); // Litecoin color
+          const drawBitcoin = () => drawCoin("#f7931a");
+          const drawEthereum = () => drawCoin("#3c3c3d");
+          const drawLitecoin = () => drawCoin("#bebebe");
 
           const shapes = [drawBitcoin, drawEthereum, drawLitecoin];
           const randomShape = shapes[Math.floor(Math.random() * shapes.length)];
@@ -152,7 +147,7 @@ export default function Roulette() {
             mustStartSpinning={mustSpin}
             prizeNumber={prizeNumber}
             data={data}
-            outerBorderColor={["#f2f2f2"]}
+            outerBorderColor={["linear-gradient(135deg, #FFD700 0%, #FFA500 100%)"]}
             outerBorderWidth={[10]}
             innerBorderColor={["#f2f2f2"]}
             radiusLineColor={["#dedede"]}
@@ -160,44 +155,54 @@ export default function Roulette() {
             fontSize={15}
             textColors={["#ffffff"]}
             backgroundColors={[
-              "#9986C9", // Purple
-              "linear-gradient(135deg, #FFD700 0%, #FFA500 100%)", // Gold gradient
-              "#9DD3F1", // Light Blue
-              "linear-gradient(135deg, #FFD700 0%, #FFA500 100%)", // Gold gradient
-              "#CDB4D9", // Light Purple
-              "linear-gradient(135deg, #FFD700 0%, #FFA500 100%)", // Gold gradient
+              "#9986C9", 
+              "linear-gradient(135deg, #FFD700 0%, #FFA500 100%)",
+              "#9DD3F1",
+              "linear-gradient(135deg, #FFD700 0%, #FFA500 100%)",
+              "#CDB4D9",
+              "linear-gradient(135deg, #FFD700 0%, #FFA500 100%)",
             ]}
-            onStopSpinning={() => {
-              setMustSpin(false);
-              const prizeValue = data[prizeNumber].value;
-              setTotalWinnings(prevWinnings => prevWinnings + prizeValue);
-              updateUserPoints(prizeValue);
-            }}
+            onStopSpinning={handleSpinEnd}
           />
 
           <div
             style={{
               position: "absolute",
               top: "50%",
-
-              zIndex: 6000,
+              zIndex: 1000,
               transform: "translateY(-50%)",
             }}
-            className="flex animate-ping justify-center h-[100px] w-full">
+            className="flex animate-pulse justify-center h-[100px] w-full">
             <button
               style={{
                 height: "58px",
                 width: "58px",
-                backgroundColor: "#7400D3",
+                // backgroundColor: "#7400D3",
                 borderRadius: "50%",
               }}
-              className="bg-[#7400D3] animate-spin border h-12 w-12 text-white rounded-full transition duration-300 ease-in-out"
+              className="coin animate-pulse border h-12 w-12 text-white rounded-full transition duration-300 ease-in-out"
               onClick={handleSpinClick}>
               SPIN
             </button>
           </div>
         </div>
       </div>
+      <div className="z-index">
+      <AlertDialog open={showDialog} onOpenChange={setShowDialog}>
+      <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Spin Result</AlertDialogTitle>
+            <AlertDialogDescription>{dialogMessage}</AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel asChild>
+              <button onClick={() => setShowDialog(false)}>Close</button>
+            </AlertDialogCancel>
+          </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      </div>
+      
     </div>
   );
 }
