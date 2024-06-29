@@ -7,22 +7,8 @@ interface StateManager {
   applicationName: string;
   rechargeStep: number;
   passwordReset:boolean;
-  paymentRef: string;
-  recharge: {
-    stateDisco: string;
-    customerAddress: string;
-    customerEmail: string;
-    customerMeterNumber: string;
-    customerName: string;
-    customerPhone: string;
-    customerNumber: string;
-    stateID: string;
-    ibcName: string;
-    amount: number;
-    serviceCharge: number;
-    paymentKey: string;
-    splitCode: string;
-  };
+  referalCode: string;
+  
   auth:{
     resetCode:string;
   }
@@ -33,28 +19,14 @@ interface StateManager {
 }
 
 const state = hookstate<StateManager>({
-  applicationName: "MPG COIN",
+  applicationName: "MPG TOKEN",
   realuserId:"",
   isloggedin: false,
   emailAddress: "",
   rechargeStep: 1,
-  paymentRef: "",
+  referalCode: "",
   passwordReset:true,
-  recharge: {
-    stateDisco: "",
-    customerAddress: "",
-    customerEmail: "",
-    customerMeterNumber: "",
-    customerNumber: "",
-    stateID: "",
-    customerName: "",
-    customerPhone: "",
-    ibcName: "",
-    amount: 0,
-    serviceCharge: 0,
-    paymentKey: "",
-    splitCode: "",
-  },
+  
   auth:{
     resetCode: ''
   },

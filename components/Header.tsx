@@ -1,4 +1,5 @@
 "use client";
+
 import Link from "next/link";
 import React, { useState, useEffect, useCallback } from "react";
 import ConnectBtn from "./BigButton";
@@ -10,7 +11,7 @@ import Image from "next/image";
 import Logo from "../public/mpgassets/mpglogo.png";
 
 const Header: React.FC = () => {
-  const { realuserId, isloggedin } = useStateManager();
+  const { realuserId, isloggedin,referalCode } = useStateManager();
   const [menuOpen, setMenuOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userId, setUserId] = useState<string | null>(null);
@@ -39,6 +40,8 @@ const Header: React.FC = () => {
 
           setUserId(userResponse.data._id);
           isloggedin.set(true);
+          referalCode.set(userResponse.data.referralCode)
+
           realuserId.set(userResponse.data._id);
           setUser([userResponse.data]); // Set the user data
         } catch (error) {
@@ -84,16 +87,13 @@ const Header: React.FC = () => {
   // Safely access user role
   const userRole = user.length > 0 ? user[0].role : ""; // Default to "guest" if no user is loaded
 
-  console.log(userRole);
-
   return (
     <header className="shadow-sm z-50 bg-[#00003E] py-3 text-blue-700">
       <main className="md:px-[100px] px-5 w-full mx-auto flex justify-between items-center flex-wrap">
         <Link href="/" className="text-2xl mb-2">
           <Image src={Logo} height={70} width={70} alt="logo" />
-          {/* <span className="">MPG</span>
-          <span>Token</span> */}
         </Link>
+        <span>{referalCode.get()}</span>
 
         <div onClick={handleToggle} className="cursor-pointer md:hidden">
           {menuOpen ? (
@@ -139,7 +139,7 @@ const Header: React.FC = () => {
           )}
           {!isloggedin.get() ? (
             <div className="flex gap-3 items-center">
-              <a href="/login">Loging</a>
+              <Link href="/login">Login</Link>
               <Link href="/register">
                 <ConnectBtn content="Register" />
               </Link>

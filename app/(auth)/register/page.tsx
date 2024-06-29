@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
-import { useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -27,6 +27,8 @@ const Register: React.FC = () => {
   const { isloggedin } = useStateManager();
   const { toast } = useToast();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const referralCodeFromUrl = searchParams.get("referralCode");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [passwordShow, setPasswordShow] = useState(false);
   const [showIndicators, setShowIndicators] = useState(false);
@@ -35,19 +37,25 @@ const Register: React.FC = () => {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(validationSchema),
   });
 
-  // Function to register user
+  useEffect(() => {
+    if (referralCodeFromUrl) {
+      setValue("referralCode", referralCodeFromUrl);
+    }
+  }, [referralCodeFromUrl, setValue]);
+
   const registerUser = async (userData: FormData) => {
     try {
       const response = await axios.post(
-        "https://webspin-backend.onrender.com/api/users/register", // Replace with your actual API endpoint
+        "https://webspin-backend.onrender.com/api/users/register",
         userData,
         {
-          withCredentials: true, // This ensures cookies are sent and received
+          withCredentials: true,
         }
       );
 
@@ -68,14 +76,13 @@ const Register: React.FC = () => {
       const data = await registerUser(account);
       isloggedin.set(true);
 
-      // If registration is successful, redirect the user
       toast({
         title: "Congratulations",
         description: "You signed up successfully",
       });
       router.push("/login");
     } catch (error: any) {
-      console.error("Registration error:", error); // Log the error for debugging purposes
+      console.error("Registration error:", error);
       toast({
         variant: "destructive",
         title: "Uh oh! Something went wrong.",
