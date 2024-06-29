@@ -54,7 +54,7 @@ const Header: React.FC = () => {
       console.error("Error checking login status:", error);
       isloggedin.set(false);
     }
-  }, [isloggedin, realuserId]); // Add dependencies here
+  }, [isloggedin, realuserId,referalCode]); // Add dependencies here
 
   useEffect(() => {
     checkLoginStatus();

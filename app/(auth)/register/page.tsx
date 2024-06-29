@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
@@ -199,4 +199,10 @@ const Register: React.FC = () => {
   );
 };
 
-export default Register;
+const RegisterPage: React.FC = () => (
+  <Suspense fallback={<div>Loading...</div>}>
+    <Register />
+  </Suspense>
+);
+
+export default RegisterPage;
