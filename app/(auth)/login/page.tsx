@@ -18,12 +18,12 @@ const validationSchema = z.object({
   password: z
     .string()
     .min(8, { message: "Password should be at least 8 characters long." })
-    .refine(value => /[A-Z]/.test(value), {
-      message: "Password should contain at least one capital letter.",
-    })
-    .refine(value => /\d/.test(value), {
-      message: "Password should contain at least one number.",
-    }),
+    // .refine(value => /[A-Z]/.test(value), {
+    //   message: "Password should contain at least one capital letter.",
+    // })
+    // .refine(value => /\d/.test(value), {
+    //   message: "Password should contain at least one number.",
+    // }),
 });
 
 type FormData = z.infer<typeof validationSchema>;

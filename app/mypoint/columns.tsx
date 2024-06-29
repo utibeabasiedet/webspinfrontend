@@ -19,6 +19,10 @@ const UserTable = () => {
       header: "Email Address",
     },
     {
+      accessorKey: "referralCode",
+      header: "Referal Code",
+    },
+    {
       accessorKey: "points",
       header: "Points",
     },

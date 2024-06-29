@@ -169,7 +169,7 @@ export default function Roulette() {
             style={{
               position: "absolute",
               top: "50%",
-              zIndex: 1000,
+              zIndex: 10,
               transform: "translateY(-50%)",
             }}
             className="flex animate-pulse justify-center h-[100px] w-full">
@@ -180,7 +180,7 @@ export default function Roulette() {
                 // backgroundColor: "#7400D3",
                 borderRadius: "50%",
               }}
-              className="coin animate-pulse border h-12 w-12 text-white rounded-full transition duration-300 ease-in-out"
+              className="coin2 animate-pulse border h-12 w-12 text-white rounded-full transition duration-300 ease-in-out"
               onClick={handleSpinClick}>
               SPIN
             </button>

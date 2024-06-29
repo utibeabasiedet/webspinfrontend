@@ -35,7 +35,10 @@ const config = {
       backgroundImage: {
         'hero-pattern': "url('../public/banner-bg.png')",
         'footer-texture': "url('/img/footer-texture.png')",
-      }
+        'real-g':"url('../public/spinwheel.jpg')",
+      
+        'custom-gradient': 'linear-gradient(135deg, #9DD3F1 0%, #9986C9 50%, #CDB4D9 100%)',
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],
