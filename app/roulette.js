@@ -114,7 +114,7 @@ export default function Roulette() {
   };
 
   return (
-    <div style={{}} className="relative w-full flex justify-center h-[80vh]">
+    <div style={{}} className="relative w-full flex justify-center items-center h-full">
       <Confetti
         drawShape={ctx => {
           const drawCoin = color => {
@@ -140,8 +140,11 @@ export default function Roulette() {
           randomShape();
         }}
       />
-
+      <div className="text-white">{totalWinnings}</div>
+         
       <div className=" relative flex justify-center items-center  ">
+
+       
         <div style={{ position: "relative" }} className=" h-full relative ">
           <Wheel
             mustStartSpinning={mustSpin}

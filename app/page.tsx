@@ -11,11 +11,14 @@ const Roulette = dynamic(() => import("./roulette"), { ssr: false });
 export default function App() {
   return (
     <div className=" h-[80vh] bg-hero-pattern bg-[#280B70]  bg-cover bg-center bg-no-repeat  flex justify-center items-center flex-col   ">
-      {/* <Image src={pic2} alt='fre' className=" hidden md:absolute z-50 top-[20%] left-0 animate-bounce"  />
-      <Image src={pic3} alt='fre' className="hidden md:absoluteabsolute z-50 top-[20%] right-0 animate-bounce"  /> */}
-      {/* <Image src={pic4} alt='fre' className="absolute z-50 top-[50%] left-0 animate-pulse"  />
-      <Image src={pic5} alt='fre' className="absolute z-50 top-[50%] right-0 animate-pulse"  /> */}
+   
       <Roulette />
+      <section className="flex bg-[#00003E] justify-between items-center w-full text-blue-700 h-[10vh]">
+        <div className="bg-[#00003E] w-[25%] h-full flex justify-center items-center">Presale Link</div>
+        <div className="w-[25%] bg-red-500 h-full flex justify-center items-center">Referals</div>
+        <div className="w-[25%] bg-yellow-500 h-full flex justify-center items-center">Task</div>
+        <div className="w-[25%] bg-white h-full flex justify-center items-center">Withdraw</div>
+      </section>
     </div>
   );
 }

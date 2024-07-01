@@ -125,11 +125,11 @@ const Register: React.FC = () => {
           className="flex flex-col w-[100%] sm:w-[404px] relative gap-4 mt-[38px]"
         >
           <div className="flex flex-col gap-[6px]">
-            <label htmlFor="walletAddress">Wallet Address</label>
+            <label htmlFor="walletAddress">BNB Wallet Address</label>
             <input
               className="border outline-blue-700 w-full h-[48px] rounded-lg px-[14px]"
               type="text"
-              placeholder="Enter Wallet Address"
+              placeholder="Enter BNB Wallet Address"
               {...register("walletAddress")}
             />
             <span className="text-red-500 text-sm font-semibold">
