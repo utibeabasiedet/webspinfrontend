@@ -114,7 +114,9 @@ export default function Roulette() {
   };
 
   return (
-    <div style={{}} className="relative w-full flex justify-center items-center h-full">
+    <div className="overflow-hidden">
+      <div className="text-white bg-blue-700 p-4 w-full ">Today:{totalWinnings}</div>
+      
       <Confetti
         drawShape={ctx => {
           const drawCoin = color => {
@@ -140,8 +142,8 @@ export default function Roulette() {
           randomShape();
         }}
       />
-      <div className="text-white">{totalWinnings}</div>
-         
+      
+      <div style={{}} className="relative w-full flex justify-center items-center h-full">
       <div className=" relative flex justify-center items-center  ">
 
        
@@ -207,5 +209,7 @@ export default function Roulette() {
       </div>
       
     </div>
+    </div>
+    
   );
 }

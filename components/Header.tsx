@@ -9,9 +9,10 @@ import useStateManager from "../statemanager/stateManager";
 import axios from "axios";
 import Image from "next/image";
 import Logo from "../public/mpgassets/mpglogo.png";
+import BigButton from "./BigButton";
 
 const Header: React.FC = () => {
-  const { realuserId, isloggedin,referalCode } = useStateManager();
+  const { realuserId, isloggedin, referalCode } = useStateManager();
   const [menuOpen, setMenuOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userId, setUserId] = useState<string | null>(null);
@@ -40,7 +41,7 @@ const Header: React.FC = () => {
 
           setUserId(userResponse.data._id);
           isloggedin.set(true);
-          referalCode.set(userResponse.data.referralCode)
+          referalCode.set(userResponse.data.referralCode);
 
           realuserId.set(userResponse.data._id);
           setUser([userResponse.data]); // Set the user data
@@ -54,7 +55,7 @@ const Header: React.FC = () => {
       console.error("Error checking login status:", error);
       isloggedin.set(false);
     }
-  }, [isloggedin, realuserId,referalCode]); // Add dependencies here
+  }, [isloggedin, realuserId, referalCode]); // Add dependencies here
 
   useEffect(() => {
     checkLoginStatus();
@@ -93,7 +94,10 @@ const Header: React.FC = () => {
         <Link href="/" className="text-2xl mb-2">
           <Image src={Logo} height={70} width={70} alt="logo" />
         </Link>
-        <span>{referalCode.get()}</span>
+        {/* <span>{referalCode.get()}</span> */}
+        {isAuthenticated && user.length > 0 && (
+          <BigButton content={`Points: ${user[0].points}`} />
+        )}
 
         <div onClick={handleToggle} className="cursor-pointer md:hidden">
           {menuOpen ? (
@@ -104,17 +108,17 @@ const Header: React.FC = () => {
         </div>
 
         {menuOpen && (
-          <div className="flex flex-col absolute justify-start gap-5 pt-10 items-center bg-black min-h-[40vh] w-full top-16 z-50 left-0 space-x-2 md:space-x-4 mt-2 md:mt-0 pb-3">
+          <div className="flex flex-col absolute justify-start gap-5 pt-10 items-center bg-[#00003E] min-h-[40vh] w-full top-20 z-50 left-0 space-x-2 md:space-x-4 mt-2 md:mt-0 pb-3">
             <Link href="/mypoint" className="text-md">
-              dashbord
+              Dashboard
             </Link>
-            {userRole == "admin" && (
+            {userRole === "admin" && (
               <Link href="/summary" className="text-md">
                 Summary
               </Link>
             )}
             {!isAuthenticated ? (
-              <div className="flex  flex-col gap-5  pb-6 justify-center items-center">
+              <div className="flex flex-col gap-5 pb-6 justify-center items-center">
                 <Link href="/register">
                   <ConnectBtn content="Sign Up" />
                 </Link>
@@ -130,9 +134,9 @@ const Header: React.FC = () => {
 
         <div className="md:flex justify-end hidden items-center z-50 left-0 space-x-2 md:space-x-4 mt-2 md:mt-0">
           <Link href="/mypoint" className="text-md">
-            My Points
+            Dashboard
           </Link>
-          {userRole == "admin" && (
+          {userRole === "admin" && (
             <Link href="/summary" className="text-md">
               Summary
             </Link>
