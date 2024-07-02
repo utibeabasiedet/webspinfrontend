@@ -118,7 +118,7 @@ export default function Roulette() {
 
   return (
     <div className="overflow-hidden">
-      <div className="text-white bg-black  w-full ">
+      <div className="text-white bg-black  w-[100%] ">
         Today: {totalWinnings}
       </div>
 
