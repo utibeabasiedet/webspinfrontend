@@ -9,8 +9,8 @@ const Roulette = dynamic(() => import("./roulette"), { ssr: false });
 
 export default function App() {
   return (
-    <div className=" min-h-screen bg-hero-patter bg-[#280B70]  bg-cover bg-center bg-no-repeat  flex justify-center items-center flex-col   ">
-      <Roulette />
+    <div className=" h-[77vh] bg-hero-patter bg-frame1 bg-cover bg-center bg-no-repeat  flex  items-center flex-col   ">
+      <Roulette /> 
     </div>
   );
 }

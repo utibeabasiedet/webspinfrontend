@@ -15,8 +15,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
-
+} from "@/components/ui/alert-dialog";
 
 const data = [
   { option: "50000", value: 50000 },
@@ -109,15 +108,21 @@ export default function Roulette() {
     const prizeValue = data[prizeNumber].value;
     setTotalWinnings(prevWinnings => prevWinnings + prizeValue);
     updateUserPoints(prizeValue);
-    setDialogMessage(prizeValue > 0 ? `Congratulations! You won ${prizeValue} points!` : "Sorry, you lost. Better luck next time!");
+    setDialogMessage(
+      prizeValue > 0
+        ? `Congratulations! You won ${prizeValue} points!`
+        : "Sorry, you lost. Better luck next time!"
+    );
     setShowDialog(true);
   };
 
   return (
     <div className="overflow-hidden">
-      <div className="text-white bg-blue-700 p-4 w-full ">Today:{totalWinnings}</div>
-      
-      <Confetti
+      <div className="text-white bg-black  w-full ">
+        Today: {totalWinnings}
+      </div>
+
+      {/* <Confetti
         drawShape={ctx => {
           const drawCoin = color => {
             ctx.beginPath();
@@ -141,75 +146,75 @@ export default function Roulette() {
           const randomShape = shapes[Math.floor(Math.random() * shapes.length)];
           randomShape();
         }}
-      />
-      
-      <div style={{}} className="relative w-full flex justify-center items-center h-full">
-      <div className=" relative flex justify-center items-center  ">
+      /> */}
 
-       
-        <div style={{ position: "relative" }} className=" h-full relative ">
-          <Wheel
-            mustStartSpinning={mustSpin}
-            prizeNumber={prizeNumber}
-            data={data}
-            outerBorderColor={["linear-gradient(135deg, #FFD700 0%, #FFA500 100%)"]}
-            outerBorderWidth={[10]}
-            innerBorderColor={["#f2f2f2"]}
-            radiusLineColor={["#dedede"]}
-            radiusLineWidth={[1]}
-            fontSize={15}
-            textColors={["#ffffff"]}
-            backgroundColors={[
-              "#9986C9", 
-              "linear-gradient(135deg, #FFD700 0%, #FFA500 100%)",
-              "#9DD3F1",
-              "linear-gradient(135deg, #FFD700 0%, #FFA500 100%)",
-              "#CDB4D9",
-              "linear-gradient(135deg, #FFD700 0%, #FFA500 100%)",
-            ]}
-            onStopSpinning={handleSpinEnd}
-          />
+      <div
+        style={{}}
+        className="relative w-full flex justify-center items-center h-full">
+        <div className=" relative flex justify-center items-center  ">
+          <div style={{ position: "relative",  }} className=" h-full bg-red-400 relative ">
+            <Wheel
+              mustStartSpinning={mustSpin}
+              prizeNumber={prizeNumber}
+              data={data}
+              outerBorderColor={[
+                "linear-gradient(135deg, #FFD700 0%, #FFA500 100%)",
+              ]}
+              outerBorderWidth={[10]}
+              innerBorderColor={["#f2f2f2"]}
+              radiusLineColor={["#dedede"]}
+              radiusLineWidth={[1]}
+              fontSize={15}
+              textColors={["#ffffff"]}
+              backgroundColors={[
+                "#9986C9",
+                "linear-gradient(135deg, #FFD700 0%, #FFA500 100%)",
+                "#9DD3F1",
+                "linear-gradient(135deg, #FFD700 0%, #FFA500 100%)",
+                "#CDB4D9",
+                "linear-gradient(135deg, #FFD700 0%, #FFA500 100%)",
+              ]}
+              onStopSpinning={handleSpinEnd}
+            />
 
-          <div
-            style={{
-              position: "absolute",
-              top: "50%",
-              zIndex: 10,
-              transform: "translateY(-50%)",
-            }}
-            className="flex animate-pulse justify-center h-[100px] w-full">
-            <button
+            <div
               style={{
-                height: "58px",
-                width: "58px",
-                // backgroundColor: "#7400D3",
-                borderRadius: "50%",
+                position: "absolute",
+                top: "50%",
+                zIndex: 10,
+                transform: "translateY(-50%)",
               }}
-              className="coin2 animate-pulse border h-12 w-12 text-white rounded-full transition duration-300 ease-in-out"
-              onClick={handleSpinClick}>
-              SPIN
-            </button>
+              className="flex animate-pulse justify-center h-[100px] w-full">
+              <button
+                style={{
+                  height: "58px",
+                  width: "58px",
+                  // backgroundColor: "#7400D3",
+                  borderRadius: "50%",
+                }}
+                className="coin2 animate-pulse border h-12 w-12 text-white rounded-full transition duration-300 ease-in-out"
+                onClick={handleSpinClick}>
+                SPIN
+              </button>
+            </div>
           </div>
         </div>
+        <div className="z-index">
+          <AlertDialog open={showDialog} onOpenChange={setShowDialog}>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Spin Result</AlertDialogTitle>
+                <AlertDialogDescription>{dialogMessage}</AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel asChild>
+                  <button onClick={() => setShowDialog(false)}>Close</button>
+                </AlertDialogCancel>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+        </div>
       </div>
-      <div className="z-index">
-      <AlertDialog open={showDialog} onOpenChange={setShowDialog}>
-      <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Spin Result</AlertDialogTitle>
-            <AlertDialogDescription>{dialogMessage}</AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel asChild>
-              <button onClick={() => setShowDialog(false)}>Close</button>
-            </AlertDialogCancel>
-          </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
-      </div>
-      
     </div>
-    </div>
-    
   );
 }

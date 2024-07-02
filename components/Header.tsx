@@ -89,7 +89,7 @@ const Header: React.FC = () => {
   const userRole = user.length > 0 ? user[0].role : ""; // Default to "guest" if no user is loaded
 
   return (
-    <header className="shadow-sm z-50 bg-[#00003E] py-3 text-blue-700">
+    <header className="shadow-sm z-50 bg-[#00003E] br-1 h-[13vh] py-2 text-blue-700">
       <main className="md:px-[100px] px-5 w-full mx-auto flex justify-between items-center flex-wrap">
         <Link href="/" className="text-2xl mb-2">
           <Image src={Logo} height={70} width={70} alt="logo" />

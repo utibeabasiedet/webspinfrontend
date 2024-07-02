@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { DataTable } from "./data-table"; // Adjust the import path as needed
 import { ColumnDef } from "@tanstack/react-table";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const UserTable = () => {
   const [user, setUser] = useState<any[]>([]);
@@ -30,9 +32,7 @@ const UserTable = () => {
       id: "actions",
       header: "Actions",
       cell: ({ row }) => (
-        <button onClick={() => handleWithdraw()}>
-          Withdraw
-        </button>
+        <button onClick={() => handleWithdraw()}>Withdraw</button>
       ),
     },
   ];
@@ -78,32 +78,43 @@ const UserTable = () => {
     checkLoginStatus();
   }, []);
 
-  const handleWithdraw = async () => {
-    try {
-      const response = await axios.post(
-        "https://webspin-backend.onrender.com/api/users/withdraw",
-        {},
-        {
-          withCredentials: true,
-        }
-      );
+  // const handleWithdraw = async () => {
+  //   try {
+  //     const response = await axios.post(
+  //       "https://webspin-backend.onrender.com/api/users/withdraw",
+  //       {},
+  //       {
+  //         withCredentials: true,
+  //       }
+  //     );
 
-      const updatedUser = response.data;
-      setUser((prevUsers) =>
-        prevUsers.map((u) => (u._id === updatedUser._id ? updatedUser : u))
-      );
-      alert("Points withdrawn successfully");
-    } catch (error) {
-      console.error("Error withdrawing points:", error);
-      alert("Failed to withdraw points");
-    }
+  //     const updatedUser = response.data;
+  //     setUser(prevUsers =>
+  //       prevUsers.map(u => (u._id === updatedUser._id ? updatedUser : u))
+  //     );
+  //     alert("Points withdrawn successfully");
+  //   } catch (error) {
+  //     console.error("Error withdrawing points:", error);
+  //     alert("Failed to withdraw points");
+  //   }
+  // };
+  const handleWithdraw = () => {
+    toast.info("Coming Soon!", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
   };
-
   if (loading) return <div>Loading...</div>;
   //   if (error) return <div>Error: {error.message}</div>;
 
   return (
     <div>
+           <ToastContainer />
       {user.length > 0 ? (
         <DataTable columns={columns} data={user} />
       ) : (
