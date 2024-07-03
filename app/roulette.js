@@ -20,13 +20,21 @@ import {
 const data = [
   { option: "50000", value: 50000 },
   { option: "Loss", value: 0 },
-  { option: "Jackpot 200,000", value: 200000 },
+  { option: "Jackpot", value: 200000 },
+
+  { option: "30000", value: 30000 },
+  { option: "70000", value: 70000 },
   { option: "Loss", value: 0 },
-  { option: "100000", value: 1500 },
+ 
+  { option: "80000", value: 80000 },
+  { option: "Loss", value: 0 },
+  { option: " 40,000", value: 200000 },
+  { option: "90000", value: 90000 },
+  { option: "100000", value: 100000 },
   { option: "Loss", value: 0 },
 ];
 
-const MAX_SPINS_PER_DAY = 100;
+const MAX_SPINS_PER_DAY = 15;
 
 export default function Roulette() {
   const [mustSpin, setMustSpin] = useState(false);
@@ -122,7 +130,7 @@ export default function Roulette() {
         Today: {totalWinnings}
       </div>
 
-      {/* <Confetti
+      <Confetti
         drawShape={ctx => {
           const drawCoin = color => {
             ctx.beginPath();
@@ -146,33 +154,41 @@ export default function Roulette() {
           const randomShape = shapes[Math.floor(Math.random() * shapes.length)];
           randomShape();
         }}
-      /> */}
+      />
 
       <div
         style={{}}
         className="relative w-full flex justify-center items-center h-full">
         <div className=" relative flex justify-center items-center  ">
-          <div style={{ position: "relative",  }} className=" h-full bg-red-400 relative ">
+          <div
+            style={{ position: "relative" }}
+            className=" h-full bg-red-400 relative ">
             <Wheel
               mustStartSpinning={mustSpin}
               prizeNumber={prizeNumber}
               data={data}
               outerBorderColor={[
-                "linear-gradient(135deg, #FFD700 0%, #FFA500 100%)",
+                "#021E35",
               ]}
               outerBorderWidth={[10]}
-              innerBorderColor={["#f2f2f2"]}
+              innerBorderColor={["#021E35"]}
               radiusLineColor={["#dedede"]}
               radiusLineWidth={[1]}
               fontSize={15}
               textColors={["#ffffff"]}
               backgroundColors={[
-                "#9986C9",
-                "linear-gradient(135deg, #FFD700 0%, #FFA500 100%)",
-                "#9DD3F1",
-                "linear-gradient(135deg, #FFD700 0%, #FFA500 100%)",
-                "#CDB4D9",
-                "linear-gradient(135deg, #FFD700 0%, #FFA500 100%)",
+                "#F8B214",
+                "#02B68F",
+                "#FA4C29",
+                "#043570",
+                "#F8B214",
+                "#02B68F",
+                "#FA4C29",
+                "#043570",
+                "#F8B214",
+                "#02B68F",
+                "#FA4C29",
+                "#043570",
               ]}
               onStopSpinning={handleSpinEnd}
             />
@@ -192,7 +208,7 @@ export default function Roulette() {
                   // backgroundColor: "#7400D3",
                   borderRadius: "50%",
                 }}
-                className="coin2 animate-pulse border h-12 w-12 text-white rounded-full transition duration-300 ease-in-out"
+                className="coin3 animate-pulse border h-12 w-12 text-white rounded-full transition duration-300 ease-in-out"
                 onClick={handleSpinClick}>
                 SPIN
               </button>

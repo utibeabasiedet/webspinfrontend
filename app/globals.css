@@ -58,6 +58,8 @@
     position: absolute;
   }
 
+  
+
   .coin {
     /* width: 100px;
     height: 100px; */
@@ -65,7 +67,10 @@
     background: linear-gradient(135deg, #DABF7A, #9B512A, #B47F4B);
   }
   .coin2{
-    background:linear-gradient(135deg, #9DD3F1 0%, #9986C9 50%, #CDB4D9 100%)
+    background:linear-gradient(45deg, #043570, #FA4C29);
+  }
+  .coin3{
+    background-color: black;
   }
 
   @keyframes moveBackground {

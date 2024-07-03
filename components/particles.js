@@ -1,111 +1,95 @@
-'use client'
+import { tsParticles } from "https://cdn.jsdelivr.net/npm/@tsparticles/engine@3.1.0/+esm";
+import { loadAll } from "https://cdn.jsdelivr.net/npm/@tsparticles/all@3.1.0/+esm";
 
+async function loadParticles(options) {
+  await loadAll(tsParticles);
 
-import Particles, { initParticlesEngine } from "@tsparticles/react";
-import { useEffect, useMemo, useState } from "react";
-// import { loadAll } from "@/tsparticles/all"; // if you are going to use `loadAll`, install the "@tsparticles/all" package too.
-// import { loadFull } from "tsparticles"; // if you are going to use `loadFull`, install the "tsparticles" package too.
-import { loadSlim } from "@tsparticles/slim"; // if you are going to use `loadSlim`, install the "@tsparticles/slim" package too.
-// import { loadBasic } from "@tsparticles/basic"; // if you are going to use `loadBasic`, install the "@tsparticles/basic" package too.
+  await tsParticles.load({ id: "tsparticles", options });
+}
 
-
-
-const ParticlesComponent = (props) => {
-
-  const [init, setInit] = useState(false);
-  // this should be run only once per application lifetime
-  useEffect(() => {
-    initParticlesEngine(async (engine) => {
-      // you can initiate the tsParticles instance (engine) here, adding custom shapes or presets
-      // this loads the tsparticles package bundle, it's the easiest method for getting everything ready
-      // starting from v2 you can add only the features you need reducing the bundle size
-      //await loadAll(engine);
-      //await loadFull(engine);
-      await loadSlim(engine);
-      //await loadBasic(engine);
-    }).then(() => {
-      setInit(true);
-    });
-  }, []);
-
-  const particlesLoaded = (container) => {
-    console.log(container);
-  };
-
-
-  const options = useMemo(
-    () => ({
-      background: {
-        color: {
-          value: "#fff",
+const configs = {
+  particles: {
+    destroy: {
+      mode: "split",
+      split: {
+        count: 1,
+        factor: {
+          value: {
+            min: 2,
+            max: 4
+          }
         },
-      },
-      fpsLimit: 120,
-      interactivity: {
-        events: {
-          onClick: {
-            enable: true,
-            mode: "repulse",
+        rate: {
+          value: 100
+        },
+        particles: {
+          life: {
+            count: 1,
+            duration: {
+              value: {
+                min: 2,
+                max: 3
+              }
+            }
           },
-          onHover: {
-            enable: true,
-            mode: 'grab',
-          },
-        },
-        modes: {
-          push: {
-            distance: 200,
-            duration: 15,
-          },
-          grab: {
-            distance: 150,
-          },
-        },
-      },
-      particles: {
-        color: {
-          value: "#000066",
-        },
-        links: {
-          color: "#000066",
-          distance: 150,
-          enable: true,
-          opacity: 0.3,
-          width: 1,
-        },
-        move: {
-          direction: "none",
-          enable: true,
-          outModes: {
-            default: "bounce",
-          },
-          random: true,
-          speed: 1,
-          straight: false,
-        },
-        number: {
-          density: {
-            enable: true,
-          },
-          value: 150,
-        },
-        opacity: {
-          value: 1.0,
-        },
-        shape: {
-          type: "circle",
-        },
-        size: {
-          value: { min: 1, max: 3 },
-        },
-      },
-      detectRetina: true,
-    }),
-    [],
-  );
-
-
-  return <Particles id={props.id} init={particlesLoaded} options={options} />; 
+          move: {
+            speed: {
+              min: 10,
+              max: 15
+            }
+          }
+        }
+      }
+    },
+    number: {
+      value: 80
+    },
+    color: {
+      value: [
+        "#3998D0",
+        "#2EB6AF",
+        "#A9BD33",
+        "#FEC73B",
+        "#F89930",
+        "#F45623",
+        "#D62E32",
+        "#EB586E",
+        "#9952CF"
+      ]
+    },
+    shape: {
+      type: "circle"
+    },
+    opacity: {
+      value: 1
+    },
+    size: {
+      value: {
+        min: 10,
+        max: 15
+      }
+    },
+    collisions: {
+      enable: true,
+      mode: "bounce"
+    },
+    move: {
+      enable: true,
+      speed: 3,
+      outModes: "bounce"
+    }
+  },
+  interactivity: {
+    events: {
+      onClick: {
+        enable: true,
+        mode: "pop"
+      }
+    }
+  },
+  background: {
+    color: "#000000"
+  }
 };
 
-export default ParticlesComponent;
+loadParticles(configs);
