@@ -190,7 +190,7 @@ export default function Roulette() {
 
       <div
         style={{}}
-        className="relative w-full flex justify-center items-center h-full">
+        className="relative w-full flex justify-center items-center ">
         <div className=" relative flex justify-center items-center  ">
           <div
             style={{ position: "relative" }}
