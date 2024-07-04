@@ -36,7 +36,7 @@ const data = [
   { option: "Loss", value: 0 },
 ];
 
-const MAX_SPINS_PER_DAY = 50;
+const MAX_SPINS_PER_DAY = 20;
 
 export default function Roulette() {
   const [mustSpin, setMustSpin] = useState(false);
@@ -160,10 +160,9 @@ export default function Roulette() {
 
   return (
     <div className="overflow-hidden">
-      <div className="text-black absolute flex justify-center items-center top-0 h-10 left-0  bg-white w-[100%]  sm:w-[25%]">
-        <Image src={coin} alt="coin" height={20} />
-        <Image src={coin} alt="coin" height={20} />
-         {totalWinnings}
+      <div className="text-black absolute flex   font-bold top-0 h-10 left-0   w-[100%]  sm:w-[25%]">
+        
+         <div style={{backgroundColor:"#F8B214"}} className="flex justify-center items-center p-1 w-full">Points {totalWinnings} </div><div style={{backgroundColor:"#02B68F"}} className="flex p-1 justify-center items-center w-full"> spincount:{spinCount}/ {MAX_SPINS_PER_DAY}</div>
       </div>
 
       <Confetti
@@ -171,7 +170,7 @@ export default function Roulette() {
         height={window.innerHeight}
         numberOfPieces={200}
         recycle={true}
-        gravity={0.2}
+        gravity={0.002}
         initialVelocityY={-10}
         drawShape={ctx => {
           const drawBubble = color => {
