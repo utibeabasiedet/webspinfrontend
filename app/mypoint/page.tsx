@@ -61,10 +61,10 @@ function App() {
   return (
     <div className="App px-5 md:px-10 pt-11">
       <UserTable />
-      <h1>Referral Link</h1>
+     
       {referralLink && (
-        <div>
-          <p className="inline mr-2">{referralLink}</p>
+        <div className='py-4'>
+          <p className="inline mr-2 hidden">{referralLink}</p>
           <button onClick={copyToClipboard} className="bg-blue-500 text-white px-3 py-1 rounded">Copy Referral Link</button>
           {copySuccess && <span className="ml-2 text-green-500">{copySuccess}</span>}
         </div>

@@ -36,7 +36,7 @@ const data = [
   { option: "Loss", value: 0 },
 ];
 
-const MAX_SPINS_PER_DAY = 1;
+const MAX_SPINS_PER_DAY = 50;
 
 export default function Roulette() {
   const [mustSpin, setMustSpin] = useState(false);
@@ -160,7 +160,7 @@ export default function Roulette() {
 
   return (
     <div className="overflow-hidden">
-      <div className="text-black absolute flex justify-center items-center top-0 h-10 left-0  bg-white  w-[25%]">
+      <div className="text-black absolute flex justify-center items-center top-0 h-10 left-0  bg-white w-[100%]  sm:w-[25%]">
         <Image src={coin} alt="coin" height={20} />
         <Image src={coin} alt="coin" height={20} />
          {totalWinnings}

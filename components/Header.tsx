@@ -106,9 +106,9 @@ const Header: React.FC = () => {
 
         {menuOpen && (
           <div className="flex flex-col absolute justify-start gap-5 pt-10 items-center bg-[#00003E] min-h-[40vh] w-full top-20 z-50 left-0 space-x-2 md:space-x-4 mt-2 md:mt-0 pb-3">
-            <Link href="/mypoint" className="text-md">
-              Dashboard
-            </Link>
+            {isloggedin.get() &&  <Link href="/mypoint" className="text-md">
+            Dashboard
+          </Link>} 
             {userRole === "admin" && (
               <Link href="/summary" className="text-md">
                 Summary
