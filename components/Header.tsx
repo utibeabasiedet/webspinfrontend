@@ -94,10 +94,7 @@ const Header: React.FC = () => {
         <Link href="/" className="text-2xl mb-2">
           <Image src={Logo} height={70} width={70} alt="logo" />
         </Link>
-        {/* <span>{referalCode.get()}</span> */}
-        {isAuthenticated && user.length > 0 && (
-          <BigButton content={`Points: ${user[0].points}`} />
-        )}
+        
 
         <div onClick={handleToggle} className="cursor-pointer md:hidden">
           {menuOpen ? (
@@ -133,9 +130,9 @@ const Header: React.FC = () => {
         )}
 
         <div className="md:flex justify-end hidden items-center z-50 left-0 space-x-2 md:space-x-4 mt-2 md:mt-0">
-          <Link href="/mypoint" className="text-md">
+       {isloggedin.get() &&  <Link href="/mypoint" className="text-md">
             Dashboard
-          </Link>
+          </Link>} 
           {userRole === "admin" && (
             <Link href="/summary" className="text-md">
               Summary

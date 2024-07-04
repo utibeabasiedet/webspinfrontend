@@ -5,6 +5,10 @@ import axios from "axios";
 import useStateManager from "../statemanager/stateManager";
 import "./globals.css";
 import Confetti from "react-confetti";
+import Image from 'next/image'
+import coin from '../public/mpgassets/mpglogo.png'
+import { useToast } from "@/components/ui/use-toast";
+
 import {
   AlertDialog,
   AlertDialogAction,
@@ -21,11 +25,9 @@ const data = [
   { option: "50000", value: 50000 },
   { option: "Loss", value: 0 },
   { option: "Jackpot", value: 200000 },
-
   { option: "30000", value: 30000 },
   { option: "70000", value: 70000 },
   { option: "Loss", value: 0 },
- 
   { option: "80000", value: 80000 },
   { option: "Loss", value: 0 },
   { option: " 40,000", value: 200000 },
@@ -34,7 +36,7 @@ const data = [
   { option: "Loss", value: 0 },
 ];
 
-const MAX_SPINS_PER_DAY = 15;
+const MAX_SPINS_PER_DAY = 1;
 
 export default function Roulette() {
   const [mustSpin, setMustSpin] = useState(false);
@@ -45,6 +47,7 @@ export default function Roulette() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showDialog, setShowDialog] = useState(false);
   const [dialogMessage, setDialogMessage] = useState("");
+  const { toast } = useToast();
 
   useEffect(() => {
     const checkLoginStatus = async () => {
@@ -75,19 +78,46 @@ export default function Roulette() {
       }
     };
 
+    const getUserPoints = async () => {
+      try {
+        
+        const response = await axios.get(
+          "https://webspin-backend.onrender.com/api/users/getuser",
+          {
+            withCredentials: true, // Send cookies for authentication
+          }
+        );
+        setTotalWinnings(response.data.points);
+        console.log(response.data.points)
+      } catch (error) {
+        console.error("Error getting user points:", error);
+      }
+    };
+
     if (realuserId.get()) {
       getSpinCount();
+      getUserPoints();
     }
   }, [realuserId]);
 
   const handleSpinClick = async () => {
     if (!isLoggedIn) {
-      alert("Please log in to spin the wheel.");
+      // alert("Please log in to spin the wheel.");
+      toast({
+        variant: "destructive",
+        title: "Oh No",
+        description: "Please log in to spin the wheel.",
+      });
       return;
     }
 
     if (spinCount >= MAX_SPINS_PER_DAY) {
-      alert("You have reached the maximum number of spins for today.");
+      // alert("You have reached the maximum number of spins for today.");
+      toast({
+        variant: "destructive",
+        title: "Oh No",
+        description: "You have reached the maximum number of spins for today.",
+      });
       return;
     }
 
@@ -106,6 +136,10 @@ export default function Roulette() {
       console.log("Updated user data:", response.data);
 
       setSpinCount(prevCount => prevCount + 1);
+      const totalPointsResponse = await axios.get(
+        `https://webspin-backend.onrender.com/api/users/points/${userId}`
+      );
+      setTotalWinnings(totalPointsResponse.data.totalPoints);
     } catch (error) {
       console.error("Error updating points:", error);
     }
@@ -126,33 +160,31 @@ export default function Roulette() {
 
   return (
     <div className="overflow-hidden">
-      <div className="text-white bg-black  w-[100%]">
-        Today: {totalWinnings}
+      <div className="text-black absolute flex justify-center items-center top-0 h-10 left-0  bg-white  w-[25%]">
+        <Image src={coin} alt="coin" height={20} />
+        <Image src={coin} alt="coin" height={20} />
+         {totalWinnings}
       </div>
 
       <Confetti
+        width={window.innerWidth}
+        height={window.innerHeight}
+        numberOfPieces={200}
+        recycle={true}
+        gravity={0.2}
+        initialVelocityY={-10}
         drawShape={ctx => {
-          const drawCoin = color => {
+          const drawBubble = color => {
             ctx.beginPath();
             ctx.arc(10, 10, 10, 0, Math.PI * 2);
             ctx.fillStyle = color;
             ctx.fill();
             ctx.closePath();
-
-            ctx.fillStyle = "#ffffff";
-            ctx.font = "bold 10px Arial";
-            ctx.textAlign = "center";
-            ctx.textBaseline = "middle";
-            ctx.fillText("MPG", 10, 10);
           };
 
-          const drawBitcoin = () => drawCoin("#f7931a");
-          const drawEthereum = () => drawCoin("#3c3c3d");
-          const drawLitecoin = () => drawCoin("#bebebe");
-
-          const shapes = [drawBitcoin, drawEthereum, drawLitecoin];
-          const randomShape = shapes[Math.floor(Math.random() * shapes.length)];
-          randomShape();
+          const colors = ["#ff0d57", "#ff6347", "#7fffd4", "#8a2be2", "#00ffff", "#ff1493"];
+          const randomColor = colors[Math.floor(Math.random() * colors.length)];
+          drawBubble(randomColor);
         }}
       />
 
@@ -162,18 +194,16 @@ export default function Roulette() {
         <div className=" relative flex justify-center items-center  ">
           <div
             style={{ position: "relative" }}
-            className=" h-full bg-red-400 relative ">
+            className="h-full wheel-container">
             <Wheel
               mustStartSpinning={mustSpin}
               prizeNumber={prizeNumber}
               data={data}
-              outerBorderColor={[
-                "#021E35",
-              ]}
-              outerBorderWidth={[10]}
+              outerBorderColor={["#021E35"]}
+              outerBorderWidth={10}
               innerBorderColor={["#021E35"]}
               radiusLineColor={["#dedede"]}
-              radiusLineWidth={[1]}
+              radiusLineWidth={1}
               fontSize={15}
               textColors={["#ffffff"]}
               backgroundColors={[
@@ -191,6 +221,7 @@ export default function Roulette() {
                 "#043570",
               ]}
               onStopSpinning={handleSpinEnd}
+              className="wheel"
             />
 
             <div
@@ -200,16 +231,18 @@ export default function Roulette() {
                 zIndex: 10,
                 transform: "translateY(-50%)",
               }}
-              className="flex animate-pulse justify-center h-[100px] w-full">
+              className="flex justify-center h-[100px] w-full"
+            >
               <button
                 style={{
                   height: "58px",
                   width: "58px",
-                  // backgroundColor: "#7400D3",
                   borderRadius: "50%",
+                  backgroundColor: "white",
                 }}
-                className="coin3 animate-pulse border h-12 w-12 text-white rounded-full transition duration-300 ease-in-out"
-                onClick={handleSpinClick}>
+                className="animate-pulse border h-12 w-12 text-black rounded-full transition duration-300 ease-in-out bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 hover:from-purple-600 hover:to-blue-500 hover:shadow-lg active:shadow-inner transform hover:scale-105 active:scale-95"
+                onClick={handleSpinClick}
+              >
                 SPIN
               </button>
             </div>
