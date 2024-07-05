@@ -37,6 +37,7 @@ const config = {
         'footer-texture': "url('/img/footer-texture.png')",
         'frame1': "url('../public/Frame.png')",
         'real-g':"url('../public/spinwell.jpg')",
+        'trial':"url('../public/trial.avif')",
         'linear-gradient-button': 'linear-gradient(45deg, #043570, #FA4C29)',
         'radial-gradient-bg': 'radial-gradient(circle, #021E35, #F8B214)',
       

@@ -7,7 +7,7 @@ const Roulette = dynamic(() => import('./roulette'), { ssr: false });
 
 export default function App() {
   return (
-    <div className="relative bg-real-g h-[80vh] md:h-[95vh] bg-cover bg-center bg-no-repeat flex flex-col justify-between items-center">
+    <div className="relative bg-trial h-[80vh] md:h-auto py-11 bg-cover bg-center bg-no-repeat flex flex-col justify-between items-center">
       {/* Main content */}
       <div className="flex-grow  flex justify-center items-center">
         <Roulette />
