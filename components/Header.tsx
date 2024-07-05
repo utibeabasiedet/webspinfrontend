@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import ConnectBtn from "./BigButton";
 import Button from "./CustomButton";
 import { FaBars, FaTimes } from "react-icons/fa";
@@ -17,6 +17,7 @@ const Header: React.FC = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userId, setUserId] = useState<string | null>(null);
   const [user, setUser] = useState<any[]>([]);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const checkLoginStatus = useCallback(async () => {
     try {
@@ -88,6 +89,23 @@ const Header: React.FC = () => {
   // Safely access user role
   const userRole = user.length > 0 ? user[0].role : ""; // Default to "guest" if no user is loaded
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const handleLinkClick = () => {
+    setMenuOpen(false);
+  };
+
   return (
     <header className="shadow-sm z-50 bg-[#021E35] border-b br-1 min-h-[75px] h-[80px] py-2 text-white">
       <main className="md:px-[100px] px-5 w-full mx-auto flex justify-between items-center flex-wrap">
@@ -104,23 +122,26 @@ const Header: React.FC = () => {
         </div>
 
         {menuOpen && (
-          <div className="flex flex-col absolute justify-start  items-center bg-[#021E35] min-h-[40vh] w-full top-[80px] z-50 left-0 space-x-2 md:space-x-4  md:mt-0 pb-3">
+          <div
+            ref={dropdownRef}
+            className="flex flex-col absolute justify-start  items-center bg-[#021E35] min-h-[40vh] w-full top-[80px] z-50 left-0 space-x-2 md:space-x-4  md:mt-0 pb-3"
+          >
             {isloggedin.get() && (
-              <Link href="/mypoint" className="text-md border-b w-full py-2 text-center">
+              <Link href="/mypoint" className="text-md border-b w-full py-2 text-center" onClick={handleLinkClick}>
                 Dashboard
               </Link>
             )}
             {userRole === "admin" && (
-              <Link href="/summary" className="text-md py-2 border-b w-full text-center">
+              <Link href="/summary" className="text-md py-2 border-b w-full text-center" onClick={handleLinkClick}>
                 Summary
               </Link>
             )}
             {!isAuthenticated ? (
               <div className="flex flex-col pb-6 justify-center w-full items-center">
-                <Link href="/register" className="border-b py-2  w-full text-center">
+                <Link href="/register" className="border-b py-2  w-full text-center" onClick={handleLinkClick}>
                   <ConnectBtn content="Sign Up" />
                 </Link>
-                <Link href="/login" className="border-b w-full py-2 text-center">
+                <Link href="/login" className="border-b w-full py-2 text-center" onClick={handleLinkClick}>
                   <ConnectBtn content="Sign In" />
                 </Link>
               </div>
@@ -128,7 +149,6 @@ const Header: React.FC = () => {
               <div className="border-b w-full text-center py-2">
                 <button onClick={handleLogout}>Logout</button>
               </div>
-              
             )}
           </div>
         )}
