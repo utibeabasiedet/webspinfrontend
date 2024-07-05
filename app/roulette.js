@@ -5,8 +5,8 @@ import axios from "axios";
 import useStateManager from "../statemanager/stateManager";
 import "./globals.css";
 import Confetti from "react-confetti";
-import Image from 'next/image'
-import coin from '../public/mpgassets/mpglogo.png'
+import Image from 'next/image';
+import coin from '../public/mpgassets/mpglogo.png';
 import { useToast } from "@/components/ui/use-toast";
 
 import {
@@ -47,6 +47,7 @@ export default function Roulette() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showDialog, setShowDialog] = useState(false);
   const [dialogMessage, setDialogMessage] = useState("");
+  const [isWinner, setIsWinner] = useState(false);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -80,7 +81,6 @@ export default function Roulette() {
 
     const getUserPoints = async () => {
       try {
-        
         const response = await axios.get(
           "https://webspin-backend.onrender.com/api/users/getuser",
           {
@@ -88,7 +88,7 @@ export default function Roulette() {
           }
         );
         setTotalWinnings(response.data.points);
-        console.log(response.data.points)
+        console.log(response.data.points);
       } catch (error) {
         console.error("Error getting user points:", error);
       }
@@ -102,7 +102,6 @@ export default function Roulette() {
 
   const handleSpinClick = async () => {
     if (!isLoggedIn) {
-      // alert("Please log in to spin the wheel.");
       toast({
         variant: "destructive",
         title: "Oh No",
@@ -112,7 +111,6 @@ export default function Roulette() {
     }
 
     if (spinCount >= MAX_SPINS_PER_DAY) {
-      // alert("You have reached the maximum number of spins for today.");
       toast({
         variant: "destructive",
         title: "Oh No",
@@ -126,7 +124,7 @@ export default function Roulette() {
     setMustSpin(true);
   };
 
-  const updateUserPoints = async points => {
+  const updateUserPoints = async (points) => {
     try {
       const userId = realuserId.get();
       const response = await axios.post(
@@ -135,7 +133,7 @@ export default function Roulette() {
       );
       console.log("Updated user data:", response.data);
 
-      setSpinCount(prevCount => prevCount + 1);
+      setSpinCount((prevCount) => prevCount + 1);
       const totalPointsResponse = await axios.get(
         `https://webspin-backend.onrender.com/api/users/points/${userId}`
       );
@@ -148,52 +146,60 @@ export default function Roulette() {
   const handleSpinEnd = () => {
     setMustSpin(false);
     const prizeValue = data[prizeNumber].value;
-    setTotalWinnings(prevWinnings => prevWinnings + prizeValue);
+    setTotalWinnings((prevWinnings) => prevWinnings + prizeValue);
     updateUserPoints(prizeValue);
     setDialogMessage(
       prizeValue > 0
         ? `Congratulations! You won ${prizeValue} points!`
         : "Sorry, you lost. Better luck next time!"
     );
+    setIsWinner(prizeValue > 0);
     setShowDialog(true);
+  };
+
+  const handleCloseDialog = () => {
+    setShowDialog(false);
+    setIsWinner(false);
   };
 
   return (
     <div className="overflow-hidden">
-      <div className="text-black absolute flex   font-bold top-0 h-10 left-0   w-[100%]  sm:w-[25%]">
-        
-         <div style={{backgroundColor:"#F8B214"}} className="flex justify-center items-center p-1 w-full">Points {totalWinnings} </div><div style={{backgroundColor:"#02B68F"}} className="flex p-1 justify-center items-center w-full"> spincount:{spinCount}/ {MAX_SPINS_PER_DAY}</div>
+      <div className="text-black absolute flex font-bold top-0 h-10 left-0 w-[100%] sm:w-[25%]">
+        <div style={{backgroundColor:"#F8B214"}} className="flex justify-center items-center p-1 w-full">
+          Points {totalWinnings}
+        </div>
+        <div style={{backgroundColor:"#02B68F"}} className="flex p-1 justify-center items-center w-full">
+          spincount: {spinCount}/{MAX_SPINS_PER_DAY}
+        </div>
       </div>
 
-      <Confetti
-        width={window.innerWidth}
-        height={window.innerHeight}
-        numberOfPieces={200}
-        recycle={true}
-        gravity={0.002}
-        initialVelocityY={-10}
-        drawShape={ctx => {
-          const drawBubble = color => {
-            ctx.beginPath();
-            ctx.arc(10, 10, 10, 0, Math.PI * 2);
-            ctx.fillStyle = color;
-            ctx.fill();
-            ctx.closePath();
-          };
+      {isWinner && (
+        <Confetti
+          width={window.innerWidth}
+          height={window.innerHeight}
+          numberOfPieces={200}
+          recycle={true}
+          gravity={0.002}
+          initialVelocityY={-10}
+          drawShape={(ctx) => {
+            const drawBubble = (color) => {
+              ctx.beginPath();
+              ctx.arc(10, 10, 10, 0, Math.PI * 2);
+              ctx.fillStyle = color;
+              ctx.fill();
+              ctx.closePath();
+            };
 
-          const colors = ["#ff0d57", "#ff6347", "#7fffd4", "#8a2be2", "#00ffff", "#ff1493"];
-          const randomColor = colors[Math.floor(Math.random() * colors.length)];
-          drawBubble(randomColor);
-        }}
-      />
+            const colors = ["#ff0d57", "#ff6347", "#7fffd4", "#8a2be2", "#00ffff", "#ff1493"];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            drawBubble(randomColor);
+          }}
+        />
+      )}
 
-      <div
-        style={{}}
-        className="relative w-full flex justify-center items-center ">
-        <div className=" relative flex justify-center items-center  ">
-          <div
-            style={{ position: "relative" }}
-            className="h-full wheel-container">
+      <div className="relative w-full flex justify-center items-center">
+        <div className="relative flex justify-center items-center">
+          <div style={{ position: "relative" }} className="h-full wheel-container">
             <Wheel
               mustStartSpinning={mustSpin}
               prizeNumber={prizeNumber}
@@ -248,7 +254,7 @@ export default function Roulette() {
           </div>
         </div>
         <div className="z-index">
-          <AlertDialog open={showDialog} onOpenChange={setShowDialog}>
+          <AlertDialog open={showDialog} onOpenChange={handleCloseDialog}>
             <AlertDialogContent>
               <AlertDialogHeader>
                 <AlertDialogTitle>Spin Result</AlertDialogTitle>
@@ -256,7 +262,7 @@ export default function Roulette() {
               </AlertDialogHeader>
               <AlertDialogFooter>
                 <AlertDialogCancel asChild>
-                  <button onClick={() => setShowDialog(false)}>Close</button>
+                  <button onClick={handleCloseDialog}>Close</button>
                 </AlertDialogCancel>
               </AlertDialogFooter>
             </AlertDialogContent>
