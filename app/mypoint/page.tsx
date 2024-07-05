@@ -64,19 +64,20 @@ function App() {
      
       {referralLink && (
         <div className='py-4'>
-          <p className="inline mr-2 hidden">{referralLink}</p>
+          <p className=" mr-2 hidden">{referralLink}</p>
           <button onClick={copyToClipboard} className="bg-blue-500 text-white px-3 py-1 rounded">Copy Referral Link</button>
           {copySuccess && <span className="ml-2 text-green-500">{copySuccess}</span>}
         </div>
       )}
-      <h2>Referrals <button className='bg-blue-500 h-[40px] w-[40px] text-white rounded-full'>{referrals.length} </button> </h2>
+      
       {referrals.length > 0 ? (
         <ul>
-          {referrals.map(referral => (
-            <li className='bg-gray-50 py-2 shadow-sm border-b' key={referral.email}>
-             <span className='font-bold'>Email:</span>  {referral.email} - <span className='font-bold'>Point gained: </span>{referral.points}
-            </li>
-          ))}
+          {
+            // <li className='bg-gray-50 py-2 shadow-sm border-b' key={referral.email}>
+            //  {/* <span className='font-bold'>Email:</span>  {referral.email} - <span className='font-bold'>Point gained: </span>{referral.points} */}
+            // </li>
+            <h2>Referrals <button className='bg-blue-500 h-[40px] w-[40px] text-white rounded-full'>{referrals.length} </button> </h2>
+         }
         </ul>
       ) : (
         <p>No referrals yet.</p>

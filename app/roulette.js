@@ -199,7 +199,7 @@ export default function Roulette() {
 
       <div className="relative w-full flex justify-center items-center">
         <div className="relative flex justify-center items-center">
-          <div style={{ position: "relative" }} className="h-full wheel-container">
+          <div style={{ position: "relative" }} className=" wheel-container">
             <Wheel
               mustStartSpinning={mustSpin}
               prizeNumber={prizeNumber}

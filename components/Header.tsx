@@ -89,12 +89,11 @@ const Header: React.FC = () => {
   const userRole = user.length > 0 ? user[0].role : ""; // Default to "guest" if no user is loaded
 
   return (
-    <header className="shadow-sm z-50 bg-[#021E35] br-1 h-[13vh] py-2 text-blue-700">
+    <header className="shadow-sm z-50 bg-[#021E35] border-b br-1 min-h-[75px] h-[80px] py-2 text-white">
       <main className="md:px-[100px] px-5 w-full mx-auto flex justify-between items-center flex-wrap">
-        <Link href="/" className="text-2xl mb-2">
-          <Image src={Logo} height={70} width={70} alt="logo" />
+        <Link href="/" className="text-2xl ">
+          <Image src={Logo} height={60} width={60} alt="logo" />
         </Link>
-        
 
         <div onClick={handleToggle} className="cursor-pointer md:hidden">
           {menuOpen ? (
@@ -105,34 +104,41 @@ const Header: React.FC = () => {
         </div>
 
         {menuOpen && (
-          <div className="flex flex-col absolute justify-start gap-5 pt-10 items-center bg-[#00003E] min-h-[40vh] w-full top-20 z-50 left-0 space-x-2 md:space-x-4 mt-2 md:mt-0 pb-3">
-            {isloggedin.get() &&  <Link href="/mypoint" className="text-md">
-            Dashboard
-          </Link>} 
+          <div className="flex flex-col absolute justify-start  items-center bg-[#021E35] min-h-[40vh] w-full top-[80px] z-50 left-0 space-x-2 md:space-x-4  md:mt-0 pb-3">
+            {isloggedin.get() && (
+              <Link href="/mypoint" className="text-md border-b w-full py-2 text-center">
+                Dashboard
+              </Link>
+            )}
             {userRole === "admin" && (
-              <Link href="/summary" className="text-md">
+              <Link href="/summary" className="text-md py-2 border-b w-full text-center">
                 Summary
               </Link>
             )}
             {!isAuthenticated ? (
-              <div className="flex flex-col gap-5 pb-6 justify-center items-center">
-                <Link href="/register">
+              <div className="flex flex-col pb-6 justify-center w-full items-center">
+                <Link href="/register" className="border-b py-2  w-full text-center">
                   <ConnectBtn content="Sign Up" />
                 </Link>
-                <Link href="/login">
+                <Link href="/login" className="border-b w-full py-2 text-center">
                   <ConnectBtn content="Sign In" />
                 </Link>
               </div>
             ) : (
-              <button onClick={handleLogout}>Logout</button>
+              <div className="border-b w-full text-center py-2">
+                <button onClick={handleLogout}>Logout</button>
+              </div>
+              
             )}
           </div>
         )}
 
         <div className="md:flex justify-end hidden items-center z-50 left-0 space-x-2 md:space-x-4 mt-2 md:mt-0">
-       {isloggedin.get() &&  <Link href="/mypoint" className="text-md">
-            Dashboard
-          </Link>} 
+          {isloggedin.get() && (
+            <Link href="/mypoint" className="text-md">
+              Dashboard
+            </Link>
+          )}
           {userRole === "admin" && (
             <Link href="/summary" className="text-md">
               Summary
