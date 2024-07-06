@@ -7,14 +7,14 @@ const Roulette = dynamic(() => import('./roulette'), { ssr: false });
 
 export default function App() {
   return (
-    <div className="relative bg-trial h-[80vh] md:h-auto py-11 bg-cover bg-center bg-no-repeat flex flex-col justify-between items-center">
+    <div className="relative bg-trial h-[87vh] md:h-[100vh] py-11 bg-cover bg-center bg-no-repeat flex flex-col justify-between items-center">
       {/* Main content */}
-      <div className="flex-grow  flex justify-center items-center">
+      <div className="flex-grow   flex justify-center items-center">
         <Roulette />
       </div>
       
       {/* Bottom section */}
-      <section className="flex bg-[#021E35] justify-between items-center w-full text-white h-[10vh] flex-shrink-0">
+      <section className="flex bg-[#021E35] justify-between items-center w-full absolute bottom-0 text-white h-[10vh] flex-shrink-0">
         <div className="bg-[#021E35] border border-1 w-[25%] h-full flex justify-center items-center">Presale</div>
         <div className="w-[25%] bg-[#F8B214] border border-1 h-full flex justify-center items-center">Referral</div>
         <div className="w-[25%] bg-[#02B68F] border border-1 h-full flex justify-center items-center">Task</div>

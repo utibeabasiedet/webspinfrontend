@@ -107,7 +107,7 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="shadow-sm z-50 bg-[#021E35] border-b br-1 min-h-[75px] h-[80px] py-2 text-white">
+    <header className="shadow-sm z-50 bg-[#021E35] border-b br-1 min-h-[75px] h-[13vh] py-2 text-white">
       <main className="md:px-[100px] px-5 w-full mx-auto flex justify-between items-center flex-wrap">
         <Link href="/" className="text-2xl ">
           <Image src={Logo} height={60} width={60} alt="logo" />
