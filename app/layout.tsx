@@ -20,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className}   `}>
-        <div className="flex flex-col min-h-screen bg-black overflow-hidden">
+        <div className="flex flex-col min-h-[] bg-black overflow-hidden">
           <Header />
           <Toaster />
           <div className="flex-1">{children}</div>
