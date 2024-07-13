@@ -20,7 +20,9 @@ export default function App() {
         <div className="w-[25%] bg-[#F8B214] border border-1 h-full flex justify-center items-center">
           <a href="/mypoint">Referral</a>
           </div>
-        <div className="w-[25%] bg-[#02B68F] border border-1 h-full flex justify-center items-center">Task</div>
+        <div className="w-[25%] bg-[#02B68F] border border-1 h-full flex justify-center items-center">
+          <a href="/mytask">Task</a>
+          </div>
         <div className="w-[25%] bg-white text-blue-700 h-full flex justify-center items-center">
           <a href="/mypoint">Withdraw</a>
         </div>
