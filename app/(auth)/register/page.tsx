@@ -52,8 +52,7 @@ const Register: React.FC = () => {
   const registerUser = async (userData: FormData) => {
     try {
       const response = await axios.post(
-         "https://webspin-backend.onrender.com/api/users/register",
-        
+        "https://webspin-backend.onrender.com/api/users/register",
         userData,
         {
           withCredentials: true,
