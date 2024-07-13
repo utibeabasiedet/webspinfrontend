@@ -38,6 +38,13 @@ const data = [
 
 const MAX_SPINS_PER_DAY = 20;
 
+const formatTotalWinnings = (totalWinnings) => {
+  if (totalWinnings === 0) return "0";
+  const power = Math.floor(Math.log10(totalWinnings));
+  const base = totalWinnings / Math.pow(10, power);
+  return `${base.toFixed(2)} × 10^${power}`;
+};
+
 export default function Roulette() {
   const [mustSpin, setMustSpin] = useState(false);
   const [prizeNumber, setPrizeNumber] = useState(0);
@@ -166,10 +173,10 @@ export default function Roulette() {
     <div className="overflow-hidden">
       <div className="text-black absolute flex font-bold top-0 h-10 left-0 w-[100%] sm:w-[25%]">
         <div style={{backgroundColor:"#F8B214"}} className="flex justify-center items-center p-1 w-full">
-          Points {totalWinnings}
+        Points: {formatTotalWinnings(totalWinnings)}
         </div>
         <div style={{backgroundColor:"#02B68F"}} className="flex p-1 justify-center items-center w-full">
-          spincount: {spinCount}/{MAX_SPINS_PER_DAY}
+          Spincount: {spinCount}/{MAX_SPINS_PER_DAY}
         </div>
       </div>
 
