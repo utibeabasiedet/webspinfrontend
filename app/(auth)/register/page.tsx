@@ -52,7 +52,8 @@ const Register: React.FC = () => {
   const registerUser = async (userData: FormData) => {
     try {
       const response = await axios.post(
-        "https://webspin-backend.onrender.com/api/users/register",
+        // "https://webspin-backend.onrender.com/api/users/register",
+        "https://airdrop.mpgtoken.com/api/users/register",
         userData,
         {
           withCredentials: true,
@@ -125,11 +126,11 @@ const Register: React.FC = () => {
           className="flex flex-col w-[100%] sm:w-[404px] relative gap-4 mt-[38px]"
         >
           <div className="flex flex-col gap-[6px]">
-            <label htmlFor="walletAddress">BNB Wallet Address</label>
+            <label htmlFor="walletAddress">Mpgt Wallet Address</label>
             <input
               className="border outline-blue-700 w-full h-[48px] rounded-lg px-[14px]"
               type="text"
-              placeholder="Enter BNB Wallet Address"
+              placeholder="Enter Mpgt wallet address"
               {...register("walletAddress")}
             />
             <span className="text-red-500 text-sm font-semibold">
