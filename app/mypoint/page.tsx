@@ -148,10 +148,10 @@ function App() {
 
       {referralLink && (
         <div className="py-4">
-          <p className=" mr-2 hidden">{referralLink}</p>
+          <p className="mr-2 hidden">{referralLink}</p>
           <Button
             onClick={copyToClipboard}
-            className=" bg-transparent text-black hover:text-white  px-3 py-1 rounded">
+            className="bg-transparent text-black hover:text-white  px-3 py-1 rounded">
             Copy Referral Link
           </Button>
           {copySuccess && (
