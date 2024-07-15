@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import UserTable from "./columns"; // Adjust the import path as needed
 import useStateManager from "@/statemanager/stateManager";
 import { Button } from "@/components/ui/button";
-import axios from "axios"; // Import axios to make API requests
+import axios from "axios"; 
 import {
   Dialog,
   DialogContent,
@@ -208,10 +208,10 @@ function App() {
       {referrals.length > 0 ? (
         <ul>
           <h2>
-            Referrals{" "}
+            Referrals
             <Button className=" h-[40px] w-[40px] text-white rounded-full">
-              {referrals.length}{" "}
-            </Button>{" "}
+              {referrals.length}
+            </Button>
           </h2>
         </ul>
       ) : (
