@@ -1,16 +1,22 @@
 "use client";
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState } from "react";
 import { DataTable } from "./data-table"; // Adjust the import path as needed
 import { ColumnDef } from "@tanstack/react-table";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
-const UserTable = () => {
-  const [user, setUser] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+interface UserDetails {
+  walletAddress: string;
+  emailAddress: string;
+  referralCode: string;
+  points: number;
+}
 
+interface UserTableProps {
+  userdetails: UserDetails[];
+}
+
+const UserTable: React.FC<UserTableProps> = ({ userdetails }) => {
   const columns: ColumnDef<any, any>[] = [
     {
       accessorKey: "walletAddress",
@@ -22,7 +28,7 @@ const UserTable = () => {
     },
     {
       accessorKey: "referralCode",
-      header: "Referal Code",
+      header: "Referral Code",
     },
     {
       accessorKey: "points",
@@ -36,47 +42,6 @@ const UserTable = () => {
       ),
     },
   ];
-
-  useEffect(() => {
-    const checkLoginStatus = async () => {
-      try {
-        const response = await axios.get(
-          "https://webspin-backend.onrender.com/api/users/loggedin",
-          {
-            withCredentials: true,
-          }
-        );
-
-        const isLoggedIn = response.data;
-
-        if (isLoggedIn) {
-          try {
-            const userResponse = await axios.get(
-              "https://webspin-backend.onrender.com/api/users/getuser",
-              {
-                withCredentials: true,
-              }
-            );
-
-            setUser([userResponse.data]); // Wrapping user data in an array
-            setLoading(false);
-          } catch (error) {
-            console.error("Error fetching user data:", error);
-            // setError(error);
-            setLoading(false);
-          }
-        } else {
-          setLoading(false);
-        }
-      } catch (error) {
-        console.error("Error checking login status:", error);
-        // setError(error);
-        setLoading(false);
-      }
-    };
-
-    checkLoginStatus();
-  }, []);
 
   // const handleWithdraw = async () => {
   //   try {
@@ -98,6 +63,7 @@ const UserTable = () => {
   //     alert("Failed to withdraw points");
   //   }
   // };
+
   const handleWithdraw = () => {
     toast.info("Coming Soon!", {
       position: "top-right",
@@ -109,14 +75,12 @@ const UserTable = () => {
       progress: undefined,
     });
   };
-  if (loading) return <div>Loading...</div>;
-  //   if (error) return <div>Error: {error.message}</div>;
 
   return (
     <div>
-           <ToastContainer />
-      {user.length > 0 ? (
-        <DataTable columns={columns} data={user} />
+      <ToastContainer />
+      {userdetails.length > 0 ? (
+        <DataTable columns={columns} data={userdetails} />
       ) : (
         <div>No user data</div>
       )}
